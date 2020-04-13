@@ -32,7 +32,46 @@
 	p01.setName("홍길동");
 	p01.setAge(25);
 	p01.setLoc("서울신림동");
-	 -->	
+	 -->
+	<!-- 
+	2. 생성자 호출과 처리 방법
+	-->
+	<bean id="p02" class="springweb.a02_di.z01_vo.Person">
+		<constructor-arg value="신길동" />	<!-- 순서대로 선언 -->
+		<constructor-arg value="27" />
+		<constructor-arg value="서울 상암동" />
+	</bean>
+	<!-- Person p02 = new Person("신길동",27,"서울 상암동"); -->
+	<!-- 
+	3. 객체 메모리 할당..
+	-->
+	<bean id="w01" class="springweb.a02_di.z01_vo.Woman">
+		<constructor-arg value="홍영자" />
+		<constructor-arg value="25" />
+	</bean>
+	<bean id="m01" class="springweb.a02_di.z01_vo.Man">
+		<property name="name" value="김철수" />
+		<!-- 객체를 할당하는 메서드 처리
+			m01.setWoman(w01);
+			public void setWoman(Woman woman){}
+			객체가 할당 될 때는 ref : reference(참조변수)
+			속성을 이용해서 할당한다.
+			value(X): value는 일반변수만 할당..
+		-->
+		<property name="woman" ref="w01" />
+	</bean>
+	<bean id="prod" class="springweb.a02_di.z01_vo.Product">
+		<constructor-arg value="바나나" />
+		<constructor-arg value="3000" />
+		<constructor-arg value="22" />
+	</bean>
+	<bean id="mart01" class="springweb.a02_di.z01_vo.Mart">
+		<property name="name" value="천리마마트"/>
+		<property name="prod" ref="prod" />
+	</bean>
+
+
+
 </beans>       
        
        

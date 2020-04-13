@@ -5,7 +5,10 @@ import org.springframework.beans.factory.xml.XmlBeanFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+import springweb.a02_di.z01_vo.Man;
+import springweb.a02_di.z01_vo.Mart;
 import springweb.a02_di.z01_vo.Person;
+import springweb.a02_di.z01_vo.Woman;
 
 public class A01_DIObjectCall {
 
@@ -27,7 +30,21 @@ public class A01_DIObjectCall {
 		BeanFactory bean = new XmlBeanFactory(rs);
 		Person ob = (Person)bean.getBean("p01"); 	// a01_DI.xml에서 id="p01"
 		ob.show();
-		
+		Person ob2 = (Person)bean.getBean("p02");
+		ob2.show();
+/*
+ex) a2_DI.xml, A02_DiObjectExp.java 만들고, Product로 물건명과 가격 개수를 출력 처리하세요.
+*/
+		Woman w01 = (Woman)bean.getBean("w01");
+		w01.info();
+		Man m01 = (Man)bean.getBean("m01");
+		m01.show();
+/*
+ex) Mart.java, Product.java로 마트에서 물건을 산 정보를 출력 처리하세요.
+ */
+		System.out.println("ex) Mart.java, Product.java 사용 ##");
+		Mart mart01 = (Mart)bean.getBean("mart01");
+		mart01.show();
 	}
 
 }
