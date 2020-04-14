@@ -49,8 +49,13 @@
 		<constructor-arg value="홍영자" />
 		<constructor-arg value="25" />
 	</bean>
+	<bean id="w02" class="springweb.a02_di.z01_vo.Woman">
+		<constructor-arg value="홍영자" />
+		<constructor-arg value="25" />
+	</bean>
 	<bean id="m01" class="springweb.a02_di.z01_vo.Man">
-		<property name="name" value="김철수" />
+		<!-- <property name="name" value="김철수" /> -->
+		<constructor-arg value="김철수" />
 		<!-- 객체를 할당하는 메서드 처리
 			m01.setWoman(w01);
 			public void setWoman(Woman woman){}
@@ -67,7 +72,13 @@
 	</bean>
 	<bean id="mart01" class="springweb.a02_di.z01_vo.Mart">
 		<property name="name" value="천리마마트"/>
-		<property name="prod" ref="prod" />
+		<property name="plist">
+			<list>
+				<ref bean="prod" />
+				<ref bean="prod" />
+			</list>
+		</property>
+		
 	</bean>
 
 

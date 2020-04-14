@@ -44,7 +44,7 @@ ex) Mart.java, Product.java로 마트에서 물건을 산 정보를 출력 처�
  */
 		System.out.println("ex) Mart.java, Product.java 사용 ##");
 		Mart mart01 = (Mart)bean.getBean("mart01");
-		mart01.show();
+		mart01.buyList();
 	}
 
 }

@@ -8,9 +8,26 @@ public class Man {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Man(String name) {
+		super();
+		this.name = name;
+	}
+
+	public Man(Woman woman) {
+		super();
+		this.woman = woman;
+	}
+
 	public Man(String name, Woman woman) {
 		super();
 		this.name = name;
+		this.woman = woman;
+	}
+	// autowire = "byName"일 때 할당할 수 있는 메서드..
+	// id=w02이고, Woman이 선언되어 있을 때,
+	// 이 메서드를 통해서 할당된다.
+	public void setW02(Woman woman) {
 		this.woman = woman;
 	}
 	

@@ -1,22 +1,22 @@
 package springweb.a02_di.z01_vo;
 
 public class Product {
-	private String pname;
+	private String name;
 	private int price;
 	private int cnt;
 	public Product() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Product(String pname, int price, int cnt) {
+	public Product(String name, int price, int cnt) {
 		super();
-		this.pname = pname;
+		this.name = name;
 		this.price = price;
 		this.cnt = cnt;
 	}
 	
 	public void show() {
-		System.out.println("물건명: "+pname);
+		System.out.println("물건명: "+name);
 		System.out.println("가격: "+price);
 		System.out.println("개수: "+cnt);
 	}
@@ -24,14 +24,14 @@ public class Product {
 	/**
 	 * @return the pname
 	 */
-	public String getPname() {
-		return pname;
+	public String getName() {
+		return name;
 	}
 	/**
 	 * @param pname the pname to set
 	 */
-	public void setPname(String pname) {
-		this.pname = pname;
+	public void setName(String name) {
+		this.name = name;
 	}
 	/**
 	 * @return the price

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xmlns:util="http://www.springframework.org/schema/util"
+	 xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+  		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd     
+        http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-4.0.xsd
+   		http://www.springframework.org/schema/websocket
+		http://www.springframework.org/schema/websocket/spring-websocket.xsd" >
+<!-- 
+# 자동 주입 선언(autowire)
+1. 스프링이 빈의 요구 사항과 매칭되는 애플리케이션 컨텍스 상 다른 빈을 찾아 빈 간의 의존성을 자동으로 만족시키도록 하는 처리를 말한다.
+2. 컨테이너에 해당 객체가 있으면 메서드를 통해서 자동으로 할당 처리.
+ex) Woman 객체가 이 컨테이너에 생성되어 있고, Man의 setWoman(Woman w)로 선언이 되어 있는 경우에,
+	autowire="byType"으로 선언되면, 컨테이너에서 자동으로 찾아서 객체를 할당한다.
+3. autowire 할당값
+	1) byType : 메서드를 통해서 해당 type이 정의될 때, 자동으로 할당된다.
+	2) byName : 메서드를 통해서 해당 type이 있고, 참조변수가 메서드의 property와 동일할 때, 자동으로 할당 된다.
+	3) constructor : 생성자가 정의에 해당 type 있을 때.
+	4) autodetect : 생성자나 메서드에 해당 type이 있을 때, 자동으로 할당된다.
+-->	
+	<bean id="w01" class="springweb.a02_di.z01_vo.Woman">
+		<constructor-arg value="홍영자" />
+		<constructor-arg value="25" />
+	</bean>
+	<bean id="w02" class="springweb.a02_di.z01_vo.Woman">
+		<constructor-arg value="신수빈" />
+		<constructor-arg value="27" />
+	</bean>
+	<!-- Man의 클래스에 setW02가 선언되어 있고, Woman type이 있을때 자동으로 할당된다. -->
+	<bean id="m01" class="springweb.a02_di.z01_vo.Man" autowire="byName">
+		<constructor-arg value="김철수" />
+	</bean>
+
+</beans>       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       

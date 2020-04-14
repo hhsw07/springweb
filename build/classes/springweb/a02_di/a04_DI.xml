@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xmlns:util="http://www.springframework.org/schema/util"
+	 xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+  		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd     
+        http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-4.0.xsd
+   		http://www.springframework.org/schema/websocket
+		http://www.springframework.org/schema/websocket/spring-websocket.xsd" >
+	<bean id="sch1" class="springweb.a02_di.z01_vo.Schedule">
+		<constructor-arg value="09:30" />
+		<constructor-arg value="주말의 등산" />
+	</bean>
+	<bean id="sch2" class="springweb.a02_di.z01_vo.Schedule">
+		<constructor-arg value="14:30" />
+		<constructor-arg value="오후 친구와 영화" />
+	</bean>
+	<bean id="sch3" class="springweb.a02_di.z01_vo.Schedule">
+		<constructor-arg value="18:30" />
+		<constructor-arg value="연인과 데이트" />
+	</bean>
+	<bean id="dsch" class="springweb.a02_di.z01_vo.DailySchedule">
+		<constructor-arg value="04월 14일" />
+		<property name="slist">
+			<list>
+				<ref bean="sch1" />
+				<ref bean="sch2" />
+				<ref bean="sch3" />
+			</list>
+		</property>
+	</bean>
+	
+</beans>       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       
+       

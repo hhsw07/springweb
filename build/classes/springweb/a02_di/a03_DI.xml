@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	 xmlns:util="http://www.springframework.org/schema/util"
+	 xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd
+  		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd     
+        http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util-4.0.xsd
+   		http://www.springframework.org/schema/websocket
+		http://www.springframework.org/schema/websocket/spring-websocket.xsd" >
+<!-- 
+# 1:다 관계 처리
+1. 여러 객체를 생성.
+2. 해당 객체들을 배열이나 ArrayList로 할당 할 수 있는 메서드 선언.
+3. DI.xml 에서
+	list
+		ref bean="객체1"
+		ref bean="객체2"
+
+-->	
+	<bean id="prod01" class="springweb.a02_di.z01_vo.Product">
+		<constructor-arg value="수박" />
+		<constructor-arg value="12000" />
+		<constructor-arg value="2" />
+	</bean>
+	<bean id="prod02" class="springweb.a02_di.z01_vo.Product">
+		<constructor-arg value="바나나" />
+		<constructor-arg value="4000" />
+		<constructor-arg value="3" />
+	</bean>
+	<bean id="prod03" class="springweb.a02_di.z01_vo.Product">
+		<constructor-arg value="딸기" />
+		<constructor-arg value="13000" />
+		<constructor-arg value="5" />
+	</bean>
+	<!--
+	Mart mart01 = new Mart("행복마트");
+	Product prod01 = new Product("수박",12000,2);
+	Product prod02 = new Product("바나나",4000,3);
+	Product prod03 = new Product("딸기",13000,5);
+	=====================================================
+	ArrayList<Product> plist = new ArrayList<Product>();
+	plist.add(prod01);
+	plist.add(prod02);
+	plist.add(prod03);
+	mart01.setPlist(plist);
+	-->
+	<bean id="mart01" class="springweb.a02_di.z01_vo.Mart">
+		<constructor-arg value="행복마트" />
+		<!-- public void setPlist(ArrayList<Product> plist> -->
+		<property name="plist">
+			<list>
+				<!-- ref(reference) bean = "들어올id" -->
+				<ref bean="prod01" />
+				<ref bean="prod02" />
+				<ref bean="prod03" />
+			</list>
+		</property>
+	</bean>
+<!-- 
+ex) A04_DIMultipleExp.java
+	a04_DI.xml
+	Schedule의 단위 클래스로 시간과 일정내용을 입력.
+	DailySchedule 날짜 다중의 Schedule를 할당.
+	@@월 @@일 일정계획
+	시간		계획내용
+	09:30	주말의 등산
+	14:30	오후 친구와 영화
+	18:30	연인과 데이트
+
+-->
+	
+</beans>
