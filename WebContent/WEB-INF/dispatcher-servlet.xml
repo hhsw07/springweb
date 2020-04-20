@@ -22,7 +22,9 @@
 	<bean class="springweb.a01_basic.A01_StartCtrl"/>		
 	<bean class="springweb.a01_basic.A02_ExpCtrl"/>		
 	<bean class="springweb.a01_basic.A03_MemberCtrl"/>		
-	<bean class="springweb.a01_basic.A04_ProductCtrl"/>		
+	<bean class="springweb.a01_basic.A04_ProductCtrl"/>
+	<bean class="springweb.a01_basic.A05_ReqObjCtrl"/>
+	<bean class="springweb.a01_basic.A06_ModelAttributeCtrl"/>
 		
 </beans>       
        

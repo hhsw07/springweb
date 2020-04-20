@@ -61,28 +61,19 @@ http://localhost:5080/springweb/login.do?id=&pass=
 		d.addAttribute("p01",p);
 		return "WEB-INF\\views\\a01_basic\\a06_reqObjVal.jsp";
 	}
-	
-/* 
-/prod.do
-물건명: [  ]
-가격: [  ]
-개수: [  ]
-[구매]
+/*	
+# 요청값과 모델 화면단 처리의 분리
+1. 스프링의 요청값
+	1) @RequestParam("요청key") String val
+	2) 요청값을 처리해주는 객체 :
+		Person p : 요청 key와 mapping되는 method가 있을 때
+		setXXX, setKey 객체에 데이터를 할당 처리.
+2. 모델데이터 처리
+	Model d
+	d.addAttribute("모델key",모델객체);
+3. 화면단 호출..
+	${모델key}
 
-/prodShow.do
-@@@을 @@개 @@@원 구매하여 총비용이 @@원 입니다.
-*/	
-	// http://localhost:5080/springweb/prod.do
-	@RequestMapping("/prod.do")
-	public String prod(Model d) {
-		
-		return "WEB-INF\\views\\a01_basic\\a06_reqObjValExp.jsp";
-	}
-	// http://localhost:5080/springweb/prodShow.do
-	@RequestMapping("/prodShow.do")
-	public String prod(Product p, Model d) {
-		d.addAttribute("prod",p);
-		return "WEB-INF\\views\\a01_basic\\a06_reqObjValExp.jsp";
-	}
-	
+
+*/
 }
