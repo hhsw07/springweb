@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import springweb.a02_di.z01_vo.Member;
+import springweb.z01_vo.Member;
 // springweb.a01_basic.A05_ReqObjCtrl
 @Controller
 public class A05_ReqObjCtrl {

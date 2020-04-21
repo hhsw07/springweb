@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import springweb.a02_di.z01_vo.Code;
-import springweb.a02_di.z01_vo.Member;
 import springweb.a02_di.z01_vo.Product;
+import springweb.z01_vo.Code;
+import springweb.z01_vo.Member;
 
 @Controller
 public class A06_ModelAttributeCtrl {
@@ -47,6 +47,18 @@ ex) 수학 문제
 선택했을 때, submit 처리 되어,
 결과 @@ + @@ = @@
 */
+/*
+# Controller
+1) 요청 처리.
+	변수, 객체 setXXX
+2) Model 처리
+3) 요청+Model : ModelAttribute
+4) View
+5) Model+View : ModelAttribute
+
+	
+	
+ */
 	@ModelAttribute("sign")
 	public ArrayList<Code> getSign() {
 		ArrayList<Code> sign = new ArrayList<Code>();

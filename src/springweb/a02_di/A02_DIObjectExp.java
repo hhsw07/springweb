@@ -17,7 +17,7 @@ ex) a2_DI.xml, A02_DiObjectExp.java 만들고, Product로 물건명과 가격 �
 		Resource rs = new ClassPathResource("springweb\\a02_di\\a02_DI.xml");
 		BeanFactory bean = new XmlBeanFactory(rs);
 		Product ob = (Product)bean.getBean("prod");
-		ob.show();
+		ob.info();
 	}
 
 }

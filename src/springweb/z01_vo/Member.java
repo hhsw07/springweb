@@ -1,7 +1,14 @@
-package springweb.a02_di.z01_vo;
+package springweb.z01_vo;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+// springweb.z01_vo.Member
+@Component
 public class Member {
+	@Value("${id}")
 	private String id;
+	@Value("${pass}")
 	private String pass;
 	public Member() {
 		super();
@@ -13,7 +20,7 @@ public class Member {
 		this.pass = pass;
 	}
 
-
+	
 
 	public String getId() {
 		return id;

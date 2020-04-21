@@ -1,16 +1,8 @@
-package springweb.a02_di.z01_vo;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
-// springweb.a02_di.z01_vo.Product
-//@Component
+package springweb.z01_vo;
+// springweb.z01_vo.Product
 public class Product {
-	@Value("${pname}")
 	private String name;
-	@Value("${price}")
 	private int price;
-	@Value("${cnt}")
 	private int cnt;
 	public Product() {
 		super();

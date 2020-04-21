@@ -1,4 +1,4 @@
-package springweb.a02_di.z01_vo;
+package springweb.z01_vo;
 
 public class Code {
 	private String key;

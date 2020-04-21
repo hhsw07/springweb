@@ -1,5 +1,8 @@
 package springweb.a02_di.z01_vo;
 
+import org.springframework.stereotype.Component;
+
+//@Component
 public class Man {
 	private String name;
 	private Woman woman;
