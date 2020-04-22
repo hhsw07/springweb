@@ -19,66 +19,62 @@
        http://www.springframework.org/schema/util/spring-util-4.0.xsd
    		http://www.springframework.org/schema/websocket
 		http://www.springframework.org/schema/websocket/spring-websocket.xsd" >
-	
+	<!-- 
+	# 자동 패키지 단위 객체 등록 처리..
+	1. container 설정파일에서 특정 패지키지와,
+		annotation 단위로 객체를 등록 처리할 수 있다.
+	2. 등록된 객체는 외부에서 default로 클래스명의 소문자로
+		참조하여 호출 사용한다.
+	3. 기본 형식
+		1) base-package : 대상 패키지 선언.
+		2) context:include-filter : filter 기준으로 설정하는 내용(포함)
+		   context:exclude-filter : filter 기준으로 설정하는 내용(배제할내용)
+		3) type : filter 대상에 대한 type ex) annotation(@), regex(정규식표현)
+		4) expression : 실제 쓰이는 대상이 되는 클래스 ex) Controller, Service, Repository
+	 -->
+	 <context:component-scan base-package="springweb.a02_di.z01_vo">
+	 </context:component-scan>
 <!-- 
-# 자동 패키지 단위 객체 등록 처리..
-1. container 설정파일에서 특정 패키지와, annotation 단위로 객체를 등록 처리할 수 있다.
-2. 등록된 객체는 외부에서 default로 클래스명의 소문자로 참조하여 호출 사용한다.
-3. 기본 형식
-	1) base-package : 대상 패키지 선언.
-	2) context-include-filter : filter 기준으로 설정하는 내용(포함)
-	   context-exclude-filter : filter 기준으로 설정하는 내용(배제할내용)
-	3) type : filter 대상에 의한 type ex) annotation(@), regex(정규식표현)
-	4) expression : 실제 쓰이는 대상이 되는 클래스 ex) Controller, Service, Repository
-
--->	
-	<context:component-scan base-package="springweb.a02_di.z01_vo">
-	</context:component-scan>
-<!-- 
-# 공통 설정 파일 호출 처리
-1. network의 서버 ip나 공통 저장 정보를 특헝한 파일로 관리하여
+	# 공통 설정 파일 호출 처리..
+	1. network의 서버 ip나 공통 저장 정보를 특정한 파일로 관리하여
 	전체 서버에 효과적으로 접근하게 할 수 있다.
-2. 기본 형식
-	context:property-placeholder location="classpath:/특정한 경로의 파일명
-	classpath @@@@@@@
-	
-3. 특정파일 내용
-	db.driver=
-	db.user=scott
-	db.pass=tiger
-	fileServer=
-4. 호출 형식
-	위에 설정된 key=value내용의 key값으로 호출하면 value값을 사용 할 수 있다.
-5. 소스에서 호출 처리..
-
--->	
-	<context:property-placeholder location="classpath:/springweb/a02_di/info2" />
-	<bean id="p01" class="springweb.a02_di.z01_vo.Person">
-	 <!-- .info에 key로 입력된 내용을 할당할 수 있다.  --> 
-		<property name="name" value="${name}" />
-		<property name="age" value="${age}" />
-		<property name="loc" value="${loc}" />
-	</bean>
-<!-- 
-ex)
-info2 파일에 물건명 가격 개수 정보를 key value로 설정하여
-z01_vo하위 Product클래스를 자동으로 container로
-객체가 할당하게 한뒤..
-A08_DI.java에서 pro01로 호출하여 출력처리하세요.
--->
-
-</beans>       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
-       
+	2. 기본형식.
+		context:property-placeholder location="classpath:/특정한 경로의 파일명
+		classpath는 일반적으로 src로 잡혀있다.
+	3. 특정파일 내용
+		db.driver=
+		db.user=scott
+		db.pass=tiger
+		fileServer=
+	4. 호출 형식 
+		위에 설정된 key=value내용의 key값으로 호출하면 value값을 사용할 수 있다.
+	5. 소스에서 호출 처리..	
+		
+ -->
+ 	<context:property-placeholder 
+ 		location="classpath:/springweb/a02_di/info,classpath:/springweb/a02_di/info2"/>
+ 	<bean id="p01" class="springweb.a02_di.z01_vo.Person">
+ 	<!--.info에 key로 입력된 내용을 할당할 수 있다.  -->
+ 		<property name="name" value="${name}"/>
+ 		<property name="age" value="${age}"/>
+ 		<property name="loc" value="${loc}"/>
+ 	</bean>		 
+ <!-- 
+ ex)
+ info2 파일에 물건명 가격 갯수를 정보를 key value로 설정하고.
+ z01_vo하위 Product클래스를 자동으로 container로 
+ 객체가 할당하게 한뒤..
+ A08_DI.java에서 pro01로 호출하여 출력처리하세요.
+ 
+ 
+ 
+ 
+ 
+  -->	
+</beans>
+    
+    
+    
+    
+    
+    
