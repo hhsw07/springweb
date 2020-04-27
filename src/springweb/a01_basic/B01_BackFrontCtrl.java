@@ -121,5 +121,13 @@ ex) callserver3.do
 		return "WEB-INF\\views\\z01_data\\z05_emp.jsp";
 	}
 	
+	@RequestMapping("/emplist2.do") // http://localhost:5080/springweb/emplist2.do
+	public String empList2(Emp sch, Model d) {
+		// sch, dao를 모델로 넘겨준다.
+		d.addAttribute("emplist", dao.getEmpList(sch));
+		
+		return "WEB-INF\\views\\z01_data\\z06_emp.jsp";
+	}
+	
 	
 }

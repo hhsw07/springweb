@@ -6,9 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import springweb.a02_di.z01_vo.Product;
+import springweb.z01_vo.Calcu;
 import springweb.z01_vo.Code;
 import springweb.z01_vo.Member;
 
@@ -59,23 +59,21 @@ ex) 수학 문제
 	
 	
  */
-	@ModelAttribute("sign")
-	public ArrayList<Code> getSign() {
-		ArrayList<Code> sign = new ArrayList<Code>();
-		sign.add(new Code("plus","+"));
-		sign.add(new Code("minus","-"));
-		sign.add(new Code("multiple","*"));
-		sign.add(new Code("divide","/"));
-		return sign;
+	@ModelAttribute("calList")
+	public ArrayList<Code> callist() {
+		ArrayList<Code> clist = new ArrayList<Code>();
+		clist.add(new Code("0","+"));
+		clist.add(new Code("1","-"));
+		clist.add(new Code("2","*"));
+		clist.add(new Code("3","/"));
+		return clist;
 	}
-	// http://localhost:5080/springweb/numExp.do
-	@RequestMapping("/numExp.do")
-	public String mathExp(@RequestParam(value="num01",defaultValue="0") int num01,
-						  @RequestParam(value="num02",defaultValue="0") int num02
-						  ) {
-		System.out.println("num01:"+num01);
-		System.out.println("num02:"+num02);
-		return "WEB-INF\\views\\a01_basic\\a15_mathExp.jsp";
+	// http://localhost:5080/springweb/cal.do
+	// 요청과 model 같이 처리하는 Calcu 객체 선언
+	@RequestMapping(value="/cal.do",method= {RequestMethod.GET,RequestMethod.POST})
+	public String calcu(@ModelAttribute("calcu") Calcu c) {
+	
+	return "WEB-INF\\views\\a01_basic\\a15_calcu.jsp";
 	}
 	
 }
