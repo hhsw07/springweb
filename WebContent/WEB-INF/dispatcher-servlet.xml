@@ -32,7 +32,33 @@
 		<context:include-filter type="annotation" 
 			expression="org.springframework.stereotype.Repository"/>
 	</context:component-scan>
-		
+	<!-- 
+	# mybatis를 통해서 DB 처리
+	1. DB connection
+	2. sql
+	3. 결과값 처리.
+	# DB 연결하는 bean 객체 생성.
+	1. BasicDataSource
+		1) driverClass
+		2) url
+		3) username
+		4) password
+	2. SqlSessionFactoryBean
+		1) BasicDataSource 객체와 연결 처리.
+		2) mybatis형태 xml 설정파일 연결..
+	3. MapperScannerConfigurer
+		1) 소스가 자동으로 generation되는 인터페이스 패키지 선언.
+	# DB 처리 순서.
+	1. container(xml)에 DB모듈 설정.
+	2. mybatis 설정파일 : 공통, sql파일 설정.
+	3. Repository단 interface 선언(DAO 연결 처리)
+	4. service단 구현
+	5. controller단과 화면 구성..
+	
+	
+	
+	
+	-->	
 </beans>       
        
        
