@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >	
+<mapper namespace="springweb.a03_mvc.a03_repository.BoardDao">
+	<resultMap type="board" id="boardResult" />
+	<select id="list" resultMap="boardResult" parameterType="board" >
+		select * 
+		from reboard
+		where 1=1
+		<if test="title!=null and title!=''">
+		and title like '%'||#{title}||'%'
+		</if>
+		<if test="writer!=null and writer!=''">
+		and writer like '%'||#{writer}||'%'
+		</if>
+		order by no desc
+ 	</select>
+ 	<insert id="insert" parameterType="board">
+	 	INSERT INTO REBOARD values(reboard_seq.nextval,#{refno}, 
+			#{title},#{content},#{writer},0,sysdate,sysdate,'')
+ 	</insert>
+</mapper>
+	

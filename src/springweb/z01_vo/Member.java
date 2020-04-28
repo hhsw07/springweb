@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 // springweb.z01_vo.Member
 @Component
 public class Member {
-	@Value("${id}")
+	//@Value("${id}")
 	private String id;
-	@Value("${pass}")
+	//@Value("${pass}")
 	private String pass;
 	public Member() {
 		super();

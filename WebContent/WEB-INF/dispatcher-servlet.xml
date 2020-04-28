@@ -32,6 +32,8 @@
 		<context:include-filter type="annotation" 
 			expression="org.springframework.stereotype.Repository"/>
 	</context:component-scan>
+	<!-- 공통 정보 파일 로딩 -->
+	<context:property-placeholder location="classpath:/resource/properties/info"/>
 	<!-- 
 	# mybatis를 통해서 DB 처리
 	1. DB connection
@@ -52,18 +54,43 @@
 	1. container(xml)에 DB모듈 설정.
 	2. mybatis 설정파일 : 공통, sql파일 설정.
 	3. Repository단 interface 선언(DAO 연결 처리)
+		1) body{}가 없고 return 객체, 메서드 입력객체만 선언.
+		2) 해당 패키지는 mybatis 공통 모듈에 의해서 자동으로 생성된다.
 	4. service단 구현
 	5. controller단과 화면 구성..
-	
-	
-	
-	
-	-->	
+	-->
+	<!-- DB 연결 처리 객체.. connection객체 
+	1. 드라이버
+	2. url
+	3. 계정 : username, password
+	driver=oracle.jdbc.driver.OracleDriver
+	url=jdbc:oracle:thin:@localhost:1521:xe
+	user=scott
+	pass=tiger
+	-->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+		destroy-method="close">
+		<property name="driverClassName" value="${driver}"/>
+		<property name="url" value="${url}"/>
+		<property name="username" value="${user}"/>
+		<property name="password" value="${pass}"/>
+	</bean>
+	<!-- Mybatis 모듈 사용..
+	1. 연결정보 dataSource 처리
+	2. 공통 mybatis 설정 xml 선언.. 
+	-->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:/resource/mybatis/spring.xml" />
+	</bean>
+	<!-- Repository단 interface의 패키지 위치 선언. -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="springweb.a03_mvc.a03_repository" />
+	</bean>
 </beans>       
        
        
-       
-       
+      
        
        
        

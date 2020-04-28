@@ -1,0 +1,6 @@
+# 데이터 베이스 정보. (운영서버, 테스트서버)
+driver=oracle.jdbc.driver.OracleDriver
+url=jdbc:oracle:thin:@localhost:1521:xe
+user=scott
+pass=tiger
+
