@@ -18,5 +18,15 @@ public class A01_BoardService {
 	public void insert(Board ins) {
 		dao.insert(ins);
 	}
+	public Board getBoard(int no) {
+		return dao.getBoard(no);
+	}
+	public void readcnt(int no) {
+		dao.readcnt(no);
+	}
+	
+	public void update(Board upt) {
+		dao.update(upt);
+	}
 	
 }

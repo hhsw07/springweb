@@ -20,5 +20,23 @@
 	 	INSERT INTO REBOARD values(reboard_seq.nextval,#{refno}, 
 			#{title},#{content},#{writer},0,sysdate,sysdate,'')
  	</insert>
+ 	 
+ 	<select id="getBoard" resultType="board" parameterType="int">
+		select * from reboard
+		where no = #{no}
+ 	</select>
+ 	<update id="readcnt" parameterType="board">
+ 		update reboard
+		set readcnt = readcnt+1
+		where no = #{no}
+ 	</update>
+ 	<update id="update" parameterType="board">
+ 		update reboard
+		set title = #{title},
+			writer = #{writer},
+			refno= #{refno},
+			content = #{content}
+		where no = #{no}
+ 	</update>
 </mapper>
 	

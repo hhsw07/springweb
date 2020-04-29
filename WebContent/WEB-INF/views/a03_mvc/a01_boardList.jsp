@@ -34,6 +34,10 @@
 			}
 		});
 	});
+	function go(no){
+		$(location).attr("href","${path}/board.do?method=detail&no="+no);
+	}
+	
 </script>
 </head>
 <body>
@@ -63,7 +67,7 @@
     </thead>
     <tbody>
       <c:forEach var="board" items="${blist}">	
-      <tr class="text-center">
+      <tr class="text-center" onclick="javascript:go(${board.no})">
         <td>${board.no}</td>
         <td class="text-left">${board.title}</td>
         <td class="text-center">${board.writer}</td>

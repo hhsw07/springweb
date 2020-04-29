@@ -2,6 +2,8 @@ package springweb.a03_mvc.a04_vo;
 
 import java.util.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class Board {
 	private int no;			// 글번호
 	private int refno;		// 답글번호
@@ -13,6 +15,10 @@ public class Board {
 	private Date uptdte;	// 수정일
 	private String etc; 	// 기타
 	private int level;		// 계층형에서 level-답글처리시.
+	
+	// 파일 등록 처리 객체
+	private MultipartFile[] report;
+	
 	public int getNo() {
 		return no;
 	}
@@ -72,6 +78,12 @@ public class Board {
 	}
 	public void setLevel(int level) {
 		this.level = level;
+	}
+	public MultipartFile[] getReport() {
+		return report;
+	}
+	public void setReport(MultipartFile[] report) {
+		this.report = report;
 	}
 	
 	

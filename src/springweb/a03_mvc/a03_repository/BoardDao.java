@@ -12,4 +12,7 @@ public interface BoardDao {
 	// springweb.a03_mvc.a03_repository.BoardDao
 	public ArrayList<Board> list(Board sch);
 	public void insert(Board ins);
+	public Board getBoard(int no);
+	public void readcnt(int no);
+	public void update(Board upt);
 }

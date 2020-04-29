@@ -33,6 +33,79 @@
 	8) 상세화면과 수정, 삭제 처리
 	9) 답글작성 처리.
 
+3. 상세 화면 처리.
+	1) 데이터 처리.
+		sql : select * from reboard
+			  where no = ##
+	2) Dao interface 선언
+		public Board getBoard(int no);
+	3) boardMapper.xml
+		<select id="getBoard" resultType="board"
+			parameterType="int">
+			select * from reboard
+			where no = #{no}
+	4) service에서 dao 호출
+	5) controller에서 service호출.
+		@RequestMapping(param="method=detail")
+		public String detail(@RequestParam("no") int no,
+							 Model d){
+			d.addAttribute("board",service.getBoard(no));
+		}
+	6) view boardDetail.jsp
+		<input type="text" name="no" value="${board.no}" />
+		<input type="text" name="titel" value="${board.title}" />
+		<input type="text" name="writer" value="${board.writer}" />
+	7) view 화면 jsp에서..
+		<tr onclick="go(${board.no})"/>
+		function go(no){
+			$(location).attr("href",
+			"${path}/board.do?method=detail");
+		}
+
+3.1 조회수 증가
+	update table reboard
+	set readcnt = readcnt+1
+	where no = 1;
+
+
+4. 수정 처리
+	1) 데이터 처리
+		update table reboard
+		set title = ##,
+			writer = ##,
+			refno= 00,
+			content = ##
+		where no = 00;
+
+		
+5. 파일 업로드와 다운로드 처리.
+	1) 설정(lib)
+		업로드할 파일의 위치를 설정(properties 파일에서 설정)
+		- tomcat에서 기본 설정한 위치
+		- WebContent 하위의 특정한 위치..
+	2) 컨테이너에서 파일 업로드 bean으로 등록 처리
+	3) jsp 화면에서 
+		<input type="file" name="report"
+		<form enctype="multipart/form-data"
+	4) VO
+		Board 에서..
+			MultipartFile report;
+			MultipartFile[] report; // 여러개일 경우 배열로 사용
+			// 네트워크상 stream으로 파일 전송하는 객체
+	5) service
+		- 파일명 .report.getOriginalFilename()으로 가져온다.
+		- File 객체 생성.
+		- MultipartFile을 특정한 위치에 File객체로 변환하여 저장..
+			.tranferTo(파일객체)
+			eclipse에서 내장 tomcat으로 설치되기 때문에 임시위치가 지정..
+			임시위치에서 실제 Webcontent 하위 특정 위치로 변경처리가 필요하다.
+			==> Files.copy
+		- 파일명을 DB에 저장 - 글번호와 mapping하여.
+		
+
+
+
+
 
 
 

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import springweb.a03_mvc.a02_service.A01_BoardService;
 import springweb.a03_mvc.a04_vo.Board;
@@ -21,7 +22,14 @@ public class A01_BoardCtrl {
 	@RequestMapping(params="method=list")
 	public String list(Board sch, Model d) {
 		d.addAttribute("blist", service.list(sch));
-		return "WEB-INF\\views\\a03_mvc\\a01_boardList.jsp";
+		// return "WEB-INF\\views\\a03_mvc\\a01_boardList.jsp";
+		// view resolver로 접두어와 접미어가 생략했을 때 처리..
+		return "a01_boardList";
+	}
+	@RequestMapping(params="method=Ajaxlist")
+	public String ajaxlist(Board sch, Model d) {
+		d.addAttribute("blist", service.list(sch));
+		return "jsonReport";
 	}
 	@RequestMapping(params="method=insForm")
 	public String insertForm() {
@@ -33,6 +41,16 @@ public class A01_BoardCtrl {
 		service.insert(insert);
 		
 		return "WEB-INF\\views\\a03_mvc\\a01_boardInsert.jsp";
+	}
+	@RequestMapping(params="method=detail")
+	public String detail(@RequestParam("no") int no,
+						 Model d){
+		// 조회건수 추가
+		service.readcnt(no);
+		
+		d.addAttribute("board",service.getBoard(no));
+		
+		return "WEB-INF\\views\\a03_mvc\\a01_boardDetail.jsp";
 	}
 	
 
