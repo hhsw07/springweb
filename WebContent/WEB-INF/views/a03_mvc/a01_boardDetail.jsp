@@ -77,7 +77,6 @@
 		<input name="title" class="form-control"
 			value="${board.title}"  
 			placeholder="제목입력하세요" />	
-		 
 	</div>  	
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend">
@@ -98,7 +97,16 @@
 		<textarea name="content" rows="10" 
 			class="form-control" 
 			placeholder="내용입력하세요" >${board.content}</textarea>		 
-	</div> 
+	</div>
+	<c:forEach var="fname" items="${board.fnames}" varStatus="sts">
+	<div class="input-group mb-3">
+		<div class="input-group-prepend">
+			<span class="input-group-text">첨부 파일(${sts.count}/${board.fnames.size()})</span>
+		</div>
+		<input class="form-control"
+			value="${fname}" />	
+	</div>
+	</c:forEach>
 	<div style="text-align:right;">
 		<input type="button" class="btn btn-info"
 			value="수정" id="uptBtn"/>

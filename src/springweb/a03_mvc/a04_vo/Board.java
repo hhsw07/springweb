@@ -1,24 +1,26 @@
 package springweb.a03_mvc.a04_vo;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.springframework.web.multipart.MultipartFile;
 
 public class Board {
-	private int no;			// 글번호
-	private int refno;		// 답글번호
-	private String title; 	// 제목
-	private String content; // 내용
-	private String writer; 	//작성자
-	private int readcnt; 	// 조회건수
-	private Date credte;	// 등록일
-	private Date uptdte;	// 수정일
-	private String etc; 	// 기타
-	private int level;		// 계층형에서 level-답글처리시.
-	
+	private int no;	// 글번호
+	private int refno; // 답글번호
+	private String title; // 제목
+	private String content;// 내용
+	private String writer;// 작성자
+	private int readcnt;// 조회건수
+	private Date credte;// 등록일
+	private Date uptdte;// 수정일
+	private String etc;// 기타
 	// 파일 등록 처리 객체
 	private MultipartFile[] report;
+	// 파일 로딩 정보 가지고 오기
+	private ArrayList<String> fnames;
 	
+	private int level;	// 계층형에서 level-답글처리시.
 	public int getNo() {
 		return no;
 	}
@@ -85,7 +87,11 @@ public class Board {
 	public void setReport(MultipartFile[] report) {
 		this.report = report;
 	}
-	
-	
+	public ArrayList<String> getFnames() {
+		return fnames;
+	}
+	public void setFnames(ArrayList<String> fnames) {
+		this.fnames = fnames;
+	}
 	
 }

@@ -47,7 +47,10 @@
 			if(confirm("조회 화면 이동 합니다.")){
 				$(location).attr("href","${path}/board.do?method=list");			
 			}
-		});			
+		});	
+		$(".custom-file-input").on("change",function(){
+			$(this).next(".custom-file-label").text($(this).val());
+		});
 	});
 </script>
 </head>
@@ -57,7 +60,9 @@
   <h1>게시판 등록</h1>
 </div>
 <div class="container">
-	<form method="post" action="${path}/board.do?method=insert">
+	<!-- 파일을 업로드 할 수 있는 type으로 변경 -->
+	<form method="post" enctype="multipart/form-data" 
+		action="${path}/board.do?method=insert">
 	<div class="input-group mb-3">
 		<div class="input-group-prepend">
 			<span class="input-group-text">제 목</span>
@@ -86,12 +91,46 @@
 			class="form-control" 
 			placeholder="내용입력하세요" ></textarea>		 
 	</div> 
+	<div class="input-group mb-3">
+		<div class="input-group-prepend">
+			<span class="input-group-text">첨부 파일</span>
+		</div>
+		<div class="custom-file">
+			<input type="file" name="report" 
+				class="custom-file-input" id="file01"/>
+			<label class="custom-file-label" for="file01">
+			파일을 선택하세요!</label>
+		</div>		
+	</div> 	
+	<div class="input-group mb-3">
+		<div class="input-group-prepend">
+			<span class="input-group-text">첨부 파일</span>
+		</div>
+		<div class="custom-file">
+			<input type="file" name="report" 
+				class="custom-file-input" id="file01"/>
+			<label class="custom-file-label" for="file01">
+			파일을 선택하세요!</label>
+		</div>		
+	</div> 
+	<div class="input-group mb-3">
+		<div class="input-group-prepend">
+			<span class="input-group-text">첨부 파일</span>
+		</div>
+		<div class="custom-file">
+			<input type="file" name="report" 
+				class="custom-file-input" id="file01"/>
+			<label class="custom-file-label" for="file01">
+			파일을 선택하세요!</label>
+		</div>		
+	</div> 				
 	<div style="text-align:right;">
 		<input type="button" class="btn btn-info"
 			value="등록" id="regBtn"/>
 		<input type="button" class="btn btn-success"
 			value="조회 화면으로" id="goMain"/>
 	</div>
+ 	
 	</form>
 </div>
 
