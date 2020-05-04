@@ -81,4 +81,18 @@ public class A01_BoardService {
 		return d;
 	}
 	
+	// 수정
+	public void update(Board upt) {
+		dao.update(upt);
+		/*
+		for(MultipartFile report:upt.getReport()) {
+			// 물리적 파일 정리
+			upload(report);
+		}*/
+	}
+	// 삭제
+	public void delete(int no) {
+		dao.delete(no);
+	}
+	
 }

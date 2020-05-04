@@ -20,8 +20,11 @@ public interface BoardDao {
 	// 파일 다운로드 정보 
 	public ArrayList<String> fnames(int no);
 	
-	
 	public void uptReadCnt(int no);
 	
+	// 게시글 수정
+	public void update(Board upt);
+	// 게시글 삭제
+	public void delete(int no);
 	
 }

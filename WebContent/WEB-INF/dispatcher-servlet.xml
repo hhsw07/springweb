@@ -120,6 +120,8 @@
 	 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+	<!-- 다운로드 viewer -->
+	<bean id="download" class="springweb.z02_util.DownloadViewer" />
 		 
 </beans>       
        

@@ -33,7 +33,26 @@
 		--%>
 		$("#goMain").click(function(){
 			$(location).attr("href","${path}/board.do?method=list");			
-		});			
+		});
+		$(".fileInfo").click(function(){
+			var fname = $(this).val();
+			if(confirm("다운로드하시겠습니까?")){
+				$(location).attr("href",
+						"${path}/board.do?method=download&fname="+fname);				
+			}
+		});
+		$("#uptBtn").click(function(){
+			if(confirm("수정하시겠습니까?")){
+				$("form").attr("action","${path}/board.do?method=update");
+				$("form").submit();
+			}
+		});
+		$("#delBtn").click(function(){
+			if(confirm("삭제하시겠습니까?")){
+				var no = $("[name=no]").val();
+				$(location).attr("href","${path}/board.do?method=delete&no="+no);
+			}
+		});
 	
 	});
 </script>
@@ -103,8 +122,8 @@
 		<div class="input-group-prepend">
 			<span class="input-group-text">첨부 파일(${sts.count}/${board.fnames.size()})</span>
 		</div>
-		<input class="form-control"
-			value="${fname}" />	
+		<input class="form-control fileInfo"
+			value="${fname}" />
 	</div>
 	</c:forEach>
 	<div style="text-align:right;">

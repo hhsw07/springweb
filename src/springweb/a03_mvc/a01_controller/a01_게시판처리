@@ -107,9 +107,14 @@
 		- dao만들어서 화면 처리
 			
 	8) 다운로드 bean 등록..
-		- 다운로드 Viewer 생성..
+		요청 ==> controller에서 파일호출 
+			==> Viewer에 파일로 호출(model) :파일명을 model에 탑재하여 Viewer에 호출
+		- 다운로드 Viewer bean 생성..
+		- 다운로드 controller 생성
+		- upload한 파일 클릭시, 다운로드 controller 호출 처리.
 
-
+# 게시판 수정, 삭제 처리..
+	1)
 
 
 

@@ -49,5 +49,32 @@ public class A01_BoardCtrl {
 		d.addAttribute("board", service.getBoard(no));
 		return "WEB-INF\\views\\a03_mvc\\a01_boardDetail.jsp";
 	}
-
+	
+	// 다운로드 처리.
+	@RequestMapping(params="method=download")
+	public String download(@RequestParam("fname") String fname, Model d) {
+		// 탑재할 모델명은 파일명으로 설정..
+		System.out.println("다운로드할 파일명:"+fname);
+		d.addAttribute("downloadFile",fname);
+		return "download"; // 컨테이너에서 선언한 viewer명
+	}
+	
+	// 게시글 수정
+	@RequestMapping(params="method=update")
+	public String update(Board upt, Model d) {
+		service.update(upt);
+		d.addAttribute("board", service.getBoard(upt.getNo()));
+		return "WEB-INF\\views\\a03_mvc\\a01_boardDetail.jsp";
+	}
+	// 게시글 삭제
+	@RequestMapping(params="method=delete")
+	public String update(@RequestParam("no") int no, Model d) {
+		service.delete(no);
+		d.addAttribute("blist", service.list(new Board()));
+		return "WEB-INF\\views\\a03_mvc\\a01_boardList.jsp";
+	}
+	
+	
+	
+	
 }
