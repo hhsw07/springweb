@@ -81,7 +81,7 @@ public class A01_BoardService {
 		return d;
 	}
 	
-	// 수정
+	// 게시글 수정
 	public void update(Board upt) {
 		dao.update(upt);
 		/*
@@ -90,9 +90,14 @@ public class A01_BoardService {
 			upload(report);
 		}*/
 	}
-	// 삭제
+	// 게시글 삭제
 	public void delete(int no) {
 		dao.delete(no);
+	}
+	
+	// 게시글 답글
+	public void ins() {
+		
 	}
 	
 }

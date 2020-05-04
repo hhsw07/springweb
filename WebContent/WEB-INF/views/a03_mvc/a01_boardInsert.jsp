@@ -37,6 +37,12 @@
 			}
 		}
 		
+		var refno = "${param.refno}";
+		if(refno != ""){
+			$("[name=refno]").val(refno);
+			$("[name=refno]").attr("readonly","true");
+		}
+		
 		
 		$("#regBtn").click(function(){
 			if(confirm("등록합니다.")){

@@ -53,6 +53,10 @@
 				$(location).attr("href","${path}/board.do?method=delete&no="+no);
 			}
 		});
+		$("#reBtn").click(function(){
+			var no = $("[name=no]").val();
+			$(location).attr("href","${path}/board.do?method=insForm&refno="+no);
+		});
 	
 	});
 </script>
