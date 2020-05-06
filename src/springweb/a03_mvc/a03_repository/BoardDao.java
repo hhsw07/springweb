@@ -1,6 +1,7 @@
 package springweb.a03_mvc.a03_repository;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,18 +14,19 @@ public interface BoardDao {
 	public ArrayList<Board> list(Board sch);
 	
 	public void insert(Board ins);
-	// 파일 정보 등록..
-	public void insertRepo(String fname);
+	public void updateBoard(Board upt);
+	public void deleteBoard(int no);
 	
 	public Board getBoard(int no);
-	// 파일 다운로드 정보 
-	public ArrayList<String> fnames(int no);
-	
 	public void uptReadCnt(int no);
 	
-	// 게시글 수정
-	public void update(Board upt);
-	// 게시글 삭제
-	public void delete(int no);
+	// 파일 정보 등록..
+	public void insertRepo(String fname);
+	// 파일 다운로드 정보 
+	public ArrayList<String> fnames(int no);
+	public void insFileInfo(HashMap hm);
+	public void uptFileInfo(HashMap hm);
+	public void deleteFile(int no);
+	
 	
 }

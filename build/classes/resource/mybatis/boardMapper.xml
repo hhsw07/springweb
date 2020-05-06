@@ -5,8 +5,8 @@
 <mapper namespace="springweb.a03_mvc.a03_repository.BoardDao">
  	<resultMap type="board" id="boardResult"/>
  	<select id="list" resultMap="boardResult" parameterType="board" >
-		select * 
-		from reboard
+		select rownum cnt, b.* 
+		from reboard b
 		where 1=1
 		<if test="title!=null and title!=''">
 		and title like '%'||#{title}||'%'
@@ -14,7 +14,9 @@
 		<if test="writer!=null and writer!=''">
 		and writer like '%'||#{writer}||'%'
 		</if>
-		order by no desc
+		START WITH refno = 0
+		CONNECT BY PRIOR NO = refno
+		ORDER siblings BY NO DESC
  	</select>
  	<insert id="insert" parameterType="board">
 	 	INSERT INTO REBOARD values(reboard_seq.nextval,#{refno}, 
@@ -22,12 +24,15 @@
  	</insert>
  	<!-- 
  //  insertRepo(String fname);
- //  insert into boardfile values(reboard_seq.currval, #{fname}, sysdate, sysdate, '')
+//  insert into boardfile values(reboard_seq.currval, #{fname}, sysdate, sysdate, '')
  	 -->
  	<insert id="insertRepo" parameterType="String"> 
  		insert into boardfile values(reboard_seq.currval, 
  			#{fname}, sysdate, sysdate, '')
 	</insert>
+
+	
+	
  	<select id="getBoard" 
  		resultType="board" parameterType="int">
  		SELECT *
@@ -48,22 +53,50 @@
  		   SET readcnt = readcnt+1
  		 WHERE no = #{no}
  	</update>
- 	
- 	<update id="update" parameterType="board">
- 		UPDATE reboard
- 		   SET refno = #{refno},
- 		   	   writer = #{writer},
- 		       title = #{title},
- 		       content = #{content},
- 		       uptdte = sysdate
- 		 WHERE no = #{no}
- 	</update>
- 	<delete id="delete" parameterType="int">
- 		DELETE reboard
+ 	<!-- 
+ 	uptFileInfo(String org, String tag, int no);
+ 	updateBoard(Board upt);
+ 	 -->
+ 	<update id="updateBoard" parameterType="board">
+		UPDATE reboard
+		   SET title = #{title},
+		   	   content = #{content},
+		   	   writer = #{writer},
+		   	   uptdte =sysdate
 		 WHERE NO = #{no}
- 	</delete>
+ 	</update> 
+ 	<!-- 
+ deleteBoard(int no)	
+ 	 -->
+  	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM reboard
+		 WHERE NO = #{no}
+ 	</delete> 	
+  	<delete id="deleteFile" parameterType="int">
+		DELETE FROM boardfile
+		 WHERE NO = #{no}
+ 	</delete>  	
+ 	<!-- org, tar, no 
+ 	#{속성} : preparedStatement로 처리. ? 데이터type과 matching되게 처리..
  	
+ 	${속성} : 동적 query 설정  '"+name+"'
+ 				
+ 	아래에 tar, no, org가 동일한 문자열 형식이기때문  #{속성}으로 하면
+ 	no에 'no'로 들어갈 가망성이 있어 동적query를 사용하여 활용하였다.
  	
+ 	-->
+  	<update id="uptFileInfo" parameterType="java.util.HashMap">
+		UPDATE boardfile
+			SET fname = #{tar},
+	        uptdte= sysdate
+	    WHERE NO = ${no}
+		AND fname = #{org}	    	
+	</update> 	
+ 	<insert id="insFileInfo" parameterType="java.util.HashMap"> 
+ 		insert into boardfile values(${no}, 
+ 			#{tar}, sysdate, sysdate, '')
+	</insert>	 	
 </mapper>	
+
 
 

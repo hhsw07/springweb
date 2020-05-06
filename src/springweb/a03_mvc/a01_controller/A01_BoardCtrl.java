@@ -3,6 +3,7 @@ package springweb.a03_mvc.a01_controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -44,37 +45,47 @@ public class A01_BoardCtrl {
 		
 		return "WEB-INF\\views\\a03_mvc\\a01_boardInsert.jsp";
 	}
+	@RequestMapping(params="method=update")
+	public String update(Board upt) {
+		service.update(upt);
+		return "forward:/board.do?method=detail";
+	}	
+	@RequestMapping(params="method=delete")
+	public String delete(@RequestParam("no") int no) {
+		service.deleteBoard(no);
+		return "redirect:/board.do?method=list";
+	}
+	
 	@RequestMapping(params="method=detail")
 	public String detail(@RequestParam("no") int no, Model d) {
 		d.addAttribute("board", service.getBoard(no));
 		return "WEB-INF\\views\\a03_mvc\\a01_boardDetail.jsp";
 	}
-	
 	// 다운로드 처리.
 	@RequestMapping(params="method=download")
-	public String download(@RequestParam("fname") String fname, Model d) {
+	public String download(@RequestParam("fname") String fname, 
+							Model d) {
 		// 탑재할 모델명은 파일명으로 설정..
 		System.out.println("다운로드할 파일명:"+fname);
-		d.addAttribute("downloadFile",fname);
-		return "download"; // 컨테이너에서 선언한 viewer명
+		d.addAttribute("downloadFile", fname);
+		
+		return "download"; // 컨터이너에서 선언한 viewer명..
 	}
-	
-	// 게시글 수정
-	@RequestMapping(params="method=update")
-	public String update(Board upt, Model d) {
-		service.update(upt);
-		d.addAttribute("board", service.getBoard(upt.getNo()));
-		return "WEB-INF\\views\\a03_mvc\\a01_boardDetail.jsp";
-	}
-	// 게시글 삭제
-	@RequestMapping(params="method=delete")
-	public String update(@RequestParam("no") int no, Model d) {
-		service.delete(no);
-		d.addAttribute("blist", service.list(new Board()));
-		return "WEB-INF\\views\\a03_mvc\\a01_boardList.jsp";
+	@RequestMapping(params="method=reply")
+	public String reply(@ModelAttribute("board")Board b) {
+		System.out.println("번호:"+b.getNo());
+		System.out.println("제목:"+b.getTitle());
+		System.out.println("내용:"+b.getContent());
+		b.setRefno(b.getNo());
+		b.setTitle("RE:"+b.getTitle());
+		b.setContent("\n\n\n\n\n\n\n\n======상위글=====\n"+b.getContent());
+		return "WEB-INF\\views\\a03_mvc\\a01_boardInsert.jsp";
 	}
 	
 	
 	
 	
+	
+	
+
 }

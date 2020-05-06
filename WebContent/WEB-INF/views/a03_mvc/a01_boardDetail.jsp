@@ -33,13 +33,14 @@
 		--%>
 		$("#goMain").click(function(){
 			$(location).attr("href","${path}/board.do?method=list");			
-		});
+		});	
 		$(".fileInfo").click(function(){
-			var fname = $(this).val();
+			var fname=$(this).val();
 			if(confirm("다운로드하시겠습니까?")){
 				$(location).attr("href",
-						"${path}/board.do?method=download&fname="+fname);				
+					"${path}/board.do?method=download&fname="+fname);	
 			}
+			
 		});
 		$("#uptBtn").click(function(){
 			if(confirm("수정하시겠습니까?")){
@@ -47,17 +48,22 @@
 				$("form").submit();
 			}
 		});
+		$(".custom-file-input").on("change",function(){
+			$(this).next(".custom-file-label").text($(this).val());
+		});	
 		$("#delBtn").click(function(){
 			if(confirm("삭제하시겠습니까?")){
-				var no = $("[name=no]").val();
-				$(location).attr("href","${path}/board.do?method=delete&no="+no);
+				var no = $("input[name=no]").val();
+				$(location).attr("href","${path}/board.do?method=delete&no="+no);					
 			}
 		});
 		$("#reBtn").click(function(){
-			var no = $("[name=no]").val();
-			$(location).attr("href","${path}/board.do?method=insForm&refno="+no);
+			if(confirm("답글을 달겠습니다!")){
+				$("form").attr("action",
+						"${path}/board.do?method=reply");
+				$("form").submit();
+			}
 		});
-	
 	});
 </script>
 </head>
@@ -67,7 +73,7 @@
   <h1>게시판 상세화면.</h1>
 </div>
 <div class="container">
-	<form method="post" >
+	<form method="post"  enctype="multipart/form-data" >
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend">
 			<span class="input-group-text">글번호</span>
@@ -100,6 +106,7 @@
 		<input name="title" class="form-control"
 			value="${board.title}"  
 			placeholder="제목입력하세요" />	
+		 
 	</div>  	
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend">
@@ -120,15 +127,23 @@
 		<textarea name="content" rows="10" 
 			class="form-control" 
 			placeholder="내용입력하세요" >${board.content}</textarea>		 
-	</div>
-	<c:forEach var="fname" items="${board.fnames}" varStatus="sts">
+	</div> 
+	<c:forEach var="fname"  begin="1" end="3"
+		 varStatus="sts">
 	<div class="input-group mb-3">
 		<div class="input-group-prepend">
-			<span class="input-group-text">첨부 파일(${sts.count}/${board.fnames.size()})</span>
+			<span class="input-group-text">첨부 파일( ${sts.count} / 3 )</span>
 		</div>
-		<input class="form-control fileInfo"
-			value="${fname}" />
-	</div>
+		<input class="form-control fileInfo" name="fnames"
+			value="${board.filenames[sts.index-1]}" />	
+		<div class="custom-file">
+			<input type="file" name="report" 
+				class="custom-file-input" id="file01"/>
+			<label class="custom-file-label" for="file01">
+			변경할려면 파일을 선택하세요!</label>
+		</div>			
+		 
+	</div> 	
 	</c:forEach>
 	<div style="text-align:right;">
 		<input type="button" class="btn btn-info"

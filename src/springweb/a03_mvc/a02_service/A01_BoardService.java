@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,6 +37,20 @@ public class A01_BoardService {
 			
 		}
 	}
+	public void update(Board update) {
+		/*
+		데이터 수정 처리
+		 * */ 
+		dao.updateBoard(update);
+		// 파일 수정 정보 처리
+		upload2(update);
+	}	
+	public void deleteBoard(int no) {
+		dao.deleteBoard(no);
+		dao.deleteFile(no);
+	}
+	
+	
 	@Value("${upload}")
 	private String upload; // 업로드할 위치..
 	@Value("${tmpUpload}")
@@ -71,33 +86,61 @@ public class A01_BoardService {
 			
 		}
 	}
+	// 파일 수정, 파일 정보 수정..
+	private void upload2(Board upt) {
+		
+		MultipartFile[] files = upt.getReport();
+		for(int idx=0;idx<files.length;idx++) {
+			String fileName=files[idx].getOriginalFilename();
+			if(fileName!=null&&!fileName.equals("")) {
+				File tmpFile = new File(tmpUpload+fileName);
+				// 해당 폴드에 동일한 파일이 있으면 삭제 처리
+				if(tmpFile.exists()) tmpFile.delete();
+				try {
+				// Stream으로 온 MultipartFile을 실제 파일로 변경처리.	
+					files[idx].transferTo(tmpFile);
+					File orgFile = new File(upload+fileName);
+			
+				// tmp위치에 있는 파일을 현재 웹서버에 특정할 폴드로 이동.
+				// StandardCopyOption.REPLACE_EXISTING : 기존 동일 파일명이 있을 때,
+				// 마지막에 올린 파일로 변경 처리..
+					Files.copy(tmpFile.toPath(), orgFile.toPath(), 
+								StandardCopyOption.REPLACE_EXISTING);
+					
+					
+				} catch (IllegalStateException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				// org, tar, no
+				String fnm = upt.getFnames()[idx];
+				HashMap<String, String> hm = new HashMap<String, String>();
+				hm.put("org", fnm);
+				hm.put("tar", fileName);
+				hm.put("no", ""+upt.getNo());
+				// 등록된 파일이 있으면 수정,
+				// 추가 등록시에는 등록 처리.
+				if( fnm!=null && !fnm.equals("")) {
+					dao.uptFileInfo(hm);
+				}else {
+					dao.insFileInfo(hm);
+				}
+				
+			}			
+			
+		}
+	}	
 	// 상세화면 처리..
 	public Board getBoard(int no) {
 		// 조회수 카운트업..
 		dao.uptReadCnt(no);
 		System.out.println("파일의 갯수:"+dao.fnames(no).size());
 		Board d = dao.getBoard(no);
-		d.setFnames(dao.fnames(no));
+		d.setFilenames(dao.fnames(no));
 		return d;
-	}
-	
-	// 게시글 수정
-	public void update(Board upt) {
-		dao.update(upt);
-		/*
-		for(MultipartFile report:upt.getReport()) {
-			// 물리적 파일 정리
-			upload(report);
-		}*/
-	}
-	// 게시글 삭제
-	public void delete(int no) {
-		dao.delete(no);
-	}
-	
-	// 게시글 답글
-	public void ins() {
-		
 	}
 	
 }

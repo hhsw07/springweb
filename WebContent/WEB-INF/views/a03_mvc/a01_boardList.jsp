@@ -68,7 +68,7 @@
     <tbody>
       <c:forEach var="board" items="${blist}">	
       <tr class="text-center" onclick="javascript:go(${board.no})">
-        <td>${board.no}</td>
+        <td>${board.cnt}</td>
         <td class="text-left">${board.title}</td>
         <td class="text-center">${board.writer}</td>
         <td><fmt:formatDate value="${board.credte}"/> </td>

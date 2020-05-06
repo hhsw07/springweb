@@ -6,6 +6,7 @@ import java.util.Date;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Board {
+	private int cnt; // 페이징 처리 글번호
 	private int no;	// 글번호
 	private int refno; // 답글번호
 	private String title; // 제목
@@ -17,10 +18,21 @@ public class Board {
 	private String etc;// 기타
 	// 파일 등록 처리 객체
 	private MultipartFile[] report;
+	private ArrayList<String> filenames;
 	// 파일 로딩 정보 가지고 오기
-	private ArrayList<String> fnames;
+	private String[] fnames;
 	
 	private int level;	// 계층형에서 level-답글처리시.
+	
+	
+	
+	
+	public int getCnt() {
+		return cnt;
+	}
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
 	public int getNo() {
 		return no;
 	}
@@ -87,11 +99,19 @@ public class Board {
 	public void setReport(MultipartFile[] report) {
 		this.report = report;
 	}
-	public ArrayList<String> getFnames() {
-		return fnames;
+	
+	public ArrayList<String> getFilenames() {
+		return filenames;
 	}
-	public void setFnames(ArrayList<String> fnames) {
-		this.fnames = fnames;
+	public void setFilenames(ArrayList<String> filenames) {
+		this.filenames = filenames;
 	}
 	
+	public String[] getFnames() {
+		return fnames;
+	}
+	public void setFnames(String[] fnames) {
+		this.fnames = fnames;
+	}
+
 }
