@@ -113,14 +113,73 @@
 		- 다운로드 controller 생성
 		- upload한 파일 클릭시, 다운로드 controller 호출 처리.
 
-# 게시판 수정, 삭제 처리..
-	1)
+6. 게시판 수정, 삭제 처리..
+
+7. 답글처리
+	1) 상세화면에서 현재 글에 대한 답글을 등록하게 처리하는 것을 말한다.
+	2) 기본 데이터 구조
+		원글의 no, 답글에서 refno(상위글번호)로 등록이 된다.
+		제목 : Re:원글의 제목 - default로 설정.
+		내용 : 하단에 원글의 내용 표기.
+			 ==== 상위글 내용 ====
+			 @@@
+	3) 위 내용이 변경된 등록글에서 등록 처리하게 하면 된다.
+		- 등록글에서 위의 내용을 그대로 받을 수 있게 model 데이터로 처리하여
+			해당 기본형식으로 설정될 수 있게 한다.		
+	
+	
+8. 계층형 sql
+	1) start with 컬럼명 = 조건데이터 : 계층구조의 최상위 조건을 나타낸다.
+	2) connect by prior 하위 = 상위 : 상하위 컬럼을 연결시키는 조건 처리..
+	3) order siblings by 컬럼명 desc/asc : 형제관계의 정렬 우선순위..
+
+9. paging 처리
+	한번에 보여줄 데이터건수와 현재 클릭한 페이지번호에 따라서 보여주는 데이터 list를 처리하면 된다.
+	아래와 같이 시작번호와 마지막번호를 DB처리에 넘겨주면 된다.
+	1) 페이징 sql
+		SELECT *
+		FROM (select rownum cnt, b.* 
+			  from reboard b
+			  where 1=1
+			  START WITH refno = 0
+			  CONNECT BY PRIOR no = refno
+			  ORDER siblings BY no DESC)
+		WHERE cnt BETWEEN 1 AND 5;
+	2) 페이징 처리 순서
+		- 사용하게 될 DB sql 확인..
+		- DB에 매게값으로 들어갈 VO 처리
+			페이징 처리를 위하여 필요로 하는 속성 지정
+			총 데이터 건수			ex) 17
+			페이지 크기					5
+			페이지 수 					총건수 / 페이지크기
+			현재 클릭한 페이버 번호			1 2 3 4
+			총 페이지 번호				4
+			시작번호					2클릭시 6
+			마지막번호					2클릭시 10
+		- 필요로 하는 화면 구성..
+			총 건수:@@   페이징당 건수[3/5/10/30]
+			...
+			...
+			  [1][2][3][4][5] >		블럭당 보여줄 블럭의 크기.
+			< [6][7][8][9][10] >	블럭의 시작 페이지 번호, 마지막 번호
+			< [11][12]  -- 페이지수
+		- 화면에서 선택한 정보에 따라서 페이지 시작번호와 마지막번호를 호출하여 데이터베이스에 전달
+			(service단 처리)
 
 
-
-
-
-
+9. 스프링의 modelattribute와 화면단 스프링 form 태그
+	1) 스프링은 모델명과, 스프링 form 태그를 연동하여 여러가지 기능을 처리하고 있다.
+	2) 환경 설정.
+		- controller에서는 model, modelattribute로 이름을 정해서 선언 처리.
+		- view
+			spring이 지원하는 tag lib 선언.
+			taglib prefix="form" http://www.springframework.org/tag/form
+			form:form
+				1) 모델 단위와 연결할 form의 속성값 commandName="모델명" ex)commandName="bsch"
+				2) form:input path="모델속성" ==> id, name 자동으로 생성..
+				3) value를 할당하지 않더라도 자동으로 매핑처리된다.
+				
+			
 
 
 

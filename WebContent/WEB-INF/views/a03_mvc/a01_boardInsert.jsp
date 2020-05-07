@@ -30,20 +30,13 @@
 		<%-- 
 		
 		--%>
+		var refno = "${board.refno}";
 		var isReg= "${param.title}";
-		if(isReg!=""){
+		if(isReg!=""&&refno==""){
 			if(!confirm("등록 완료하였습니다\n계속 등록하시겠습니까?")){
 				$(location).attr("href","${path}/board.do?method=list");	
 			}
 		}
-		
-		var refno = "${param.refno}";
-		if(refno != ""){
-			$("[name=refno]").val(refno);
-			$("[name=refno]").attr("readonly","true");
-		}
-		
-		
 		$("#regBtn").click(function(){
 			if(confirm("등록합니다.")){
 				$("form").submit();				
@@ -74,8 +67,7 @@
 			<span class="input-group-text">제 목</span>
 		</div>
 		<input name="title" class="form-control" 
-			placeholder="제목입력하세요" />	
-		 
+			value="${board.title}" placeholder="제목입력하세요" />	
 	</div>  
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend">
@@ -87,7 +79,7 @@
 			<span class="input-group-text">상위글번호</span>
 		</div>
 		<input name="refno" class="form-control" 
-			placeholder="상위글번호" value="0" />	
+			placeholder="상위글번호" value="${empty board.refno?0:board.refno}" />	
 	</div>		
 	<div class="input-group mb-3">
 		<div class="input-group-prepend">
@@ -95,7 +87,7 @@
 		</div>
 		<textarea name="content" rows="10" 
 			class="form-control" 
-			placeholder="내용입력하세요" ></textarea>		 
+			placeholder="내용입력하세요" >${board.content}</textarea>		 
 	</div> 
 	<div class="input-group mb-3">
 		<div class="input-group-prepend">
