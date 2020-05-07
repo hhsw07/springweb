@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import springweb.a03_mvc.a02_service.A01_BoardService;
 import springweb.a03_mvc.a04_vo.Board;
+import springweb.a03_mvc.a04_vo.BoardSch;
 
 @Controller
 @RequestMapping("/board.do")
@@ -21,14 +22,14 @@ public class A01_BoardCtrl {
 	@Autowired(required=false)
 	private A01_BoardService service;
 	@RequestMapping(params="method=list")
-	public String list(Board sch, Model d) {
+	public String list(@ModelAttribute("bsch") BoardSch sch, Model d) {
 		d.addAttribute("blist", service.list(sch));
 		// view resolver로 접두어와 접미어가 생략했을 때 처리..
 		//return "a01_boardList";
 		return "WEB-INF\\views\\a03_mvc\\a01_boardList.jsp";
 	}
 	@RequestMapping(params="method=Ajaxlist")
-	public String ajaxlist(Board sch, Model d) {
+	public String ajaxlist(BoardSch sch, Model d) {
 		d.addAttribute("blist", service.list(sch));
 		return "jsonReport";
 	}	

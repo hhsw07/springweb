@@ -6,17 +6,25 @@ import java.util.HashMap;
 import org.springframework.stereotype.Repository;
 
 import springweb.a03_mvc.a04_vo.Board;
+import springweb.a03_mvc.a04_vo.BoardSch;
 
 @Repository
 public interface BoardDao {
 	// select * from reboard
 	// springweb.a03_mvc.a03_repository.BoardDao
-	public ArrayList<Board> list(Board sch);
+	
+	// 검색할 내용의 전체 데이터 건수.
+	public int totCnt(BoardSch sch);
+	
+	
+	// 검색된 데이터 리스트
+	public ArrayList<Board> list(BoardSch sch);
 	
 	public void insert(Board ins);
 	public void updateBoard(Board upt);
 	public void deleteBoard(int no);
 	
+	// 데이터 상세보기
 	public Board getBoard(int no);
 	public void uptReadCnt(int no);
 	

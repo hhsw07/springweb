@@ -7,6 +7,7 @@
 		<typeAlias alias="emp" type="springweb.a03_mvc.a04_vo.Emp"/>
 		<typeAlias alias="dept" type="springweb.a03_mvc.a04_vo.Dept"/>
 		<typeAlias alias="board" type="springweb.a03_mvc.a04_vo.Board"/>
+		<typeAlias alias="bsch" type="springweb.a03_mvc.a04_vo.BoardSch"/>
 	</typeAliases>
 	<mappers>
 		<!-- 실제 sql을 통해서 객체를 생성할 mapper.xml 선언. -->

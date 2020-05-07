@@ -4,6 +4,7 @@
     %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
 <fmt:requestEncoding value="utf-8"/>     
 <!DOCTYPE html>
@@ -33,10 +34,21 @@
 				$(location).attr("href","${path}/board.do?method=insForm");
 			}
 		});
+		$("#pageSize").change(function(){
+			$("#curPage").val(1);	// 페이지크기를 바꾸면 초기 첫페이지가 나오도록 처리
+			$("form").submit();
+			
+		});
+		
 	});
 	function go(no){
 		$(location).attr("href","${path}/board.do?method=detail&no="+no);
 	}
+	function goPage(no){
+		$("#curPage").val(no);
+		$("form").submit();
+	}
+		
 	
 </script>
 </head>
@@ -45,16 +57,35 @@
   <h1>답변형 게시판</h1>
 </div>
 <div class="container">
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <form class="form-inline" method="post" action="${path}/board.do?method=list">
-    <input class="form-control mr-sm-2" name="title" type="text" 
-    	value= "${param.title}" placeholder="제목">
-    <input class="form-control mr-sm-2" name="writer" type="text" 
-		value= "${param.writer}" placeholder="작성자">
-    <button class="btn btn-success" type="submit">Search</button>
-    <button class="btn btn-info" id="regBtn" type="button">Registe</button>
-  </form>
-  </nav>
+  <form:form class="form" commandName="bsch" method="post">
+  	<form:hidden path="curPage" /> <!-- 현재 클릭한 페이지 번호. -->
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	  <form:input class="form-control mr-sm-2" path="title" placeholder="제목" />
+	  <form:input class="form-control mr-sm-2" path="writer" placeholder="작성자" />
+	  <button class="btn btn-success" type="submit">Search</button>
+	  <button class="btn btn-info" id="regBtn" type="button">Registe</button>
+	</nav>
+    <div class="input-group mb-3">	
+		<div class="input-group-prepend">
+			<span class="input-group-text">총 ${bsch.count}건</span>
+		</div>
+		<input class="form-control" />	
+		<div class="input-group-prepend">
+			<span class="input-group-text">페이지 크기: </span>
+			<form:select path="pageSize" class="form-control" >
+				<form:option value="3">3</form:option>
+				<form:option value="5">5</form:option>
+				<form:option value="10">10</form:option>
+				<form:option value="20">20</form:option>
+				<form:option value="30">30</form:option>
+			</form:select>
+		</div>
+	</div>
+  </form:form>
+  
+  
+  
+  
    <table class="table table-hover">
     <thead>
       <tr class="table-success text-center">
@@ -77,7 +108,15 @@
       </c:forEach>
     </tbody>
   </table>  
-
+	<ul class="pagination justify-content-center" style="margin:20px 0">
+	  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+	  <c:forEach var="cnt" begin="1" end="${bsch.pageCount}">
+		  <li class="page-item ${bsch.curPage==cnt?'active':'' }">
+		  	<a class="page-link" href="javascript:goPage(${cnt})">${cnt}</a>
+		  </li>
+	  </c:forEach>
+	  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+	</ul>
 </div>
 
 </body>

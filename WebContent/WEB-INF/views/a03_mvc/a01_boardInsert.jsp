@@ -68,7 +68,6 @@
 		</div>
 		<input name="title" class="form-control" 
 			value="${board.title}" placeholder="제목입력하세요" />	
-		 
 	</div>  
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend">
