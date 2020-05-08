@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>행복한 하루</title>
+<style>
+
+</style>
+<script src="https://unpkg.com/vue/dist/vue.js" type="text/javascript"></script>
+</head>
+<body>
+	<div id="simple01">
+<!-- 3. View단 구성 -->
+	<h2>{{msg}}</h2>
+	<!-- 
+	directive형식으로 model데이터를 출력한다.
+	{{모델데이터}} : mustache형 모델 선언 
+	-->
+	</div>
+</body>
+<script type="text/javascript">
+// # Vue는 MVVM 패턴으로 처리된다.
+// 1. Model 데이터 처리
+//	  1) 화면단에 보낼 핵심 데이터 선언..(json형식, 실무에서는 서버에서 보내진 json 데이터를 의미한다.)
+var model = {msg :"안녕하세요! vue시작"};
+
+// 2. View Model 객체 선언..
+//	  1) Model과 view를 연결하는 객체 선언..
+//	  2) model : 속성 data로 model 데이터를 지정..
+//	  3) view : 속성 el로 특정한 view의 요소객체를 지정, tag, #아이디명, .클래스명
+//    4) 형식 : new Vue({el:"요소객체지정",data:모델데이터});
+var vm = new Vue({
+	el:"#simple01",
+	data:model
+});
+</script>
+<!-- ex) a02_exp.html로 이름, 나이, 사는곳을 모델데이터로 선언하고, 화면에 아래와 같이 출력하세요.
+		 이름:@@@
+		 나이:@@@
+		 사는곳:@@@
+-->
+
+
+</html>
