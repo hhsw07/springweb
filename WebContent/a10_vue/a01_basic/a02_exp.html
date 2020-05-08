@@ -17,9 +17,11 @@ ex) a02_exp.html로 이름, 나이, 사는곳을 모델데이터로 선언하고
 		  이름:@@@
 		  나이:@@@
 		  사는곳:@@@
+	cf) script 주석에 @가 들어가면 실행X
 -->
 <script type="text/javascript">
 var model = {name:"홍길동", age:25, loc:"서울신림동" };
+
 var vm = new Vue({
 	el:"#simple",
 	data:model

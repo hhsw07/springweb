@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>행복한 하루</title>
+<script src="https://unpkg.com/vue/dist/vue.js" type="text/javascript"></script>
+</head>
+<!-- 
+# 양방향 directive
+1. 엽력형식의 태그 : form의 하위 객체 input, select, textarea의 속성값을 v-model로 설정하여
+				모델명과 mapping하면, 모델데이터에 입력된 데이터가 동기화가 된다.
+2. model과 연결된 요소객체는 영향을 받아, 해당 모델데이터로 출력도기 때문에 양방향으로 입력값이 출력 처리된다.
+
+-->
+<body>
+	<div id="show">
+		<!-- 입력형식의 객체에 v-model="모델명" -->
+		<input type="text" v-model="greet"/>
+		<h2>{{greet}}</h2>
+		<h3>{{greet}}</h3>
+		<input type="text" :value="greet"/><br>
+		<input type="text" size="2" v-model="num01" /> *
+		<input type="text" size="2" v-model="num02" /> =
+		<input type="text" size="2" :value="num01*num02" />
+	<!-- 
+	ex) 물건명:[ ]
+		가격:[ ]
+		개수:[ ]
+		v-model을 이용하여 입력과 동시에 아래에 다음 내용이 출력되게 하세요.
+		@@@을 @@@원에 @@개 구매하여 총 비용이 @@@원입니다.
+	-->
+		<br><br><br>
+		물건명:<input type="text" size="4" v-model="pname"/><br>
+		가격:<input type="text" size="4" v-model="price"/><br>
+		개수:<input type="text" size="4" v-model="cnt"/><br>
+		{{pname}}을 {{price}}원에 {{cnt}}개 구매하여 총 비용이 {{price*cnt}}원입니다.
+	</div>
+</body>
+<script type="text/javascript">
+	var vm = new Vue({
+		el:"#show",
+		data:{
+			greet:"입력값",	//초기화
+			num01:0,
+			num02:0,
+			pname:"사과",
+			price:0,
+			cnt:0
+		}
+	});
+</script>
+</html>

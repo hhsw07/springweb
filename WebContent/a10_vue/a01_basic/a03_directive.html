@@ -21,9 +21,34 @@
 
 -->
 <body>
-	
+	<div id="show">
+		<h2>mustache: {{msg}}</h2>
+		<h2 v-text="msg"></h2>
+		<div v-text="msg2"></div>
+		<div v-html="msg2"></div>
+		<!-- 속성을 지정할 때는 v-bind:속성명="모델데이터" -->
+		<h2 v-bind:align="prop">{{msg}}</h2>
+		<input type="text" v-bind:value="msg" />
+		<!-- :속성="모델명" -->
+		<img :src="fname" :width="wid" :height="hei" />
+	</div>
+	<!-- 
+	ex) a04_directExp.html
+		테이블로 출력하되, 테이블을 중앙정렬(모델)
+		데이터로 중앙정렬(모델)
+		@@ 데이터도 model로 설정하여 출력하세요.
+		물건명	가격	개수
+		@@@		@@	@@
+	-->
 </body>
 <script type="text/javascript">
-
+	var vm = new Vue({
+		el:"#show",
+		data:{msg:"안녕하세요!",
+			  msg2:"<h2>안녕하세요</h2>",
+			  prop:"center",
+			  fname:"apple.jpg", wid:"100pt", hei:"100pt"
+		}
+	});
 </script>
 </html>

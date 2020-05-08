@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>행복한 하루</title>
+<style type="text/css">
+	.ordL {text-align:left;}
+	.ordR {text-align:right;}
+</style>
+<script src="https://unpkg.com/vue/dist/vue.js" type="text/javascript"></script>
+</head>
+<!-- 
+	ex) a04_directExp.html
+		테이블로 출력하되, 테이블을 중앙정렬(모델)
+		데이터로 중앙정렬(모델)
+		@@ 데이터도 model로 설정하여 출력하세요.
+		물건명	가격	개수
+		@@@		@@	@@
+	-->
+<body>
+	<table border style="border-collapse:collapse;" v-bind:align="prop1" :width="wid">
+		<tr><th>물건명</th>
+			<th>가격</th>
+			<th>개수</th></tr>
+		<!-- 
+			style="text-align:center;"
+			v-bind:style="{textAlign:모델명}"
+		-->
+		<tr :style="{textAlign:prop1}"><td>{{pname}}</td>
+			<td>{{price}}</td>
+			<td>{{cnt}}</td></tr>
+		<tr :style="{textAlign:prop1}"><td v-text="pname"></td>
+			<td v-text="price"></td>
+			<td v-text="cnt"></td></tr>
+	</table>
+</body>
+<script type="text/javascript">
+	var mv = new Vue({
+		el:"table",
+		data:{
+			prop1:"center",
+			wid:"300pt",
+			pname:"사과",
+			price:"2,000",
+			cnt:"5"
+		}
+	});
+</script>
+</html>
