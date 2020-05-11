@@ -190,3 +190,9 @@ java.lang.NoSuchMethodError: javax.servlet.http.HttpServletRequest.getHttpServle
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.lang.Thread.run(Unknown Source)
 
+
+
+
+-- 검색
+tomcat 9.0의 servlet-api 파일을 java/jdk1.8.0_201\jre\lib\ext 에 넣기
+https://abn-abn.tistory.com/162

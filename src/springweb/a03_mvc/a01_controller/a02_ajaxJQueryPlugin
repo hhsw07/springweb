@@ -1,1 +1,37 @@
-a
+# spring과 jquery plugin 처리.
+1. spring에서 json 데이터 처리.
+2. jquery ajax 처리.
+3. jquery plugin 화면에서 ajax처리.
+/*
+# Vue는 json데이터를 활용하여 사용한다.
+# fullcalenar 사용 설정.
+1. fullcalendar download
+	- 압축해제 후 WebContent 하위 폴더로 복사.
+	- examples-selectable.html 
+	- 2020-05 날짜변경
+*/
+
+# 개발 순서
+1. jquery plugin 다운로드.
+2. 스프링 웹 환경에서 해당 화면 로딩될 수 있게,
+	css, js, lib 소스 다운로드 및 .jsp 환경 설정.
+3. json 데이터 분석 및 DB 설계
+4. ajax를 위한 서버단 json 데이터 list 처리
+	controller, dao, service단 구현.
+	1) list 처리.
+5. View단에서 jquery ajax를 통한 데이터  로딩 처리.
+6. 등록 화면 UI 구현 등록 처리 ajax처리.
+7. 상세 화면 UI 확인, 수정 삭제 ajax처리..
+	
+
+
+
+
+
+
+
+
+
+
+
+
