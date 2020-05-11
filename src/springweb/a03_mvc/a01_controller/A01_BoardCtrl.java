@@ -43,6 +43,9 @@ public class A01_BoardCtrl {
 		System.out.println("파일 로딩:"+
 		insert.getReport()[0].getOriginalFilename());
 		service.insert(insert);
+		insert.setRefno(0);
+		insert.setTitle("");
+		insert.setContent("");
 		
 		return "WEB-INF\\views\\a03_mvc\\a01_boardInsert.jsp";
 	}

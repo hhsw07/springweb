@@ -100,7 +100,13 @@
       <c:forEach var="board" items="${blist}">	
       <tr class="text-center" onclick="javascript:go(${board.no})">
         <td>${board.cnt}</td>
-        <td class="text-left">${board.title}</td>
+        <!-- 답글의 레벨만큼 들여쓰기 설정.. -->
+        <td class="text-left">
+        	<c:forEach varStatus="sts" begin="1" end="${board.level}">
+        		&nbsp;&nbsp;
+        		<c:if test="${board.level>1 and sts.last}">☞</c:if>
+        	</c:forEach>
+        	${board.title}</td>
         <td class="text-center">${board.writer}</td>
         <td><fmt:formatDate value="${board.credte}"/> </td>
         <td>${board.readcnt}</td>
@@ -109,13 +115,13 @@
     </tbody>
   </table>  
 	<ul class="pagination justify-content-center" style="margin:20px 0">
-	  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-	  <c:forEach var="cnt" begin="1" end="${bsch.pageCount}">
+	  <li class="page-item"><a class="page-link" href="javascript:goPage(${bsch.startBlock-1})">Previous</a></li>
+	  <c:forEach var="cnt" begin="${bsch.startBlock}" end="${bsch.endBlock}">
 		  <li class="page-item ${bsch.curPage==cnt?'active':'' }">
 		  	<a class="page-link" href="javascript:goPage(${cnt})">${cnt}</a>
 		  </li>
 	  </c:forEach>
-	  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  	  <li class="page-item"><a class="page-link" href="javascript:goPage(${(bsch.endBlock==bsch.pageCount)?bsch.endBlock:bsch.endBlock+1})">Next</a></li>
 	</ul>
 </div>
 

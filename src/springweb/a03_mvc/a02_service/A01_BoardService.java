@@ -56,6 +56,40 @@ public class A01_BoardService {
 		*/
 		sch.setStart((sch.getCurPage()-1)*sch.getPageSize()+1);
 		sch.setEnd(sch.getCurPage()*sch.getPageSize());
+		System.out.println("### ###");
+		System.out.println("시작페이지 번호:"+sch.getStart());
+		System.out.println("마지막페이지 번호:"+sch.getEnd());		
+		// 4. block을 위한 속성값 설정.
+		// 	1) 초기 block size(한번에 보일 block의 크기) 설정.
+		sch.setBlocksize(5);
+		/*
+		1 2 3 4 5  ==> blocknum 1
+		6 7 8 9 10 ==> blocknum 2
+		11 12 13   ==> blocknum 3
+			2) blocknum은 현재 페이지번호/블럭의크기 를 올림처리.
+				1/5 2/5 3/5 4/5 5/5   =>(올림) 1
+				6/5 7/5 8/5 9/5 10/5  =>(올림) 2
+				11/5 12/5 13/5   	  =>(올림) 3
+		*/
+		int blocknum = (int)Math.ceil(sch.getCurPage()/(double)sch.getBlocksize());
+		System.out.println("현재block 번호:"+sch.getCurPage());
+		System.out.println("blocknum:"+blocknum);
+		/*
+			3) blocknum가 5를 기준으로
+			시작페이지번호와 마지막페이지번호
+				- block의 마지막번호는 block의크기 * blocknum
+				    단, 마지막페이지번호보다 클 수 없다.
+				    마지막 block번호가 페이지크기보다 클 때는 페이지크기를 마지막 block번호로 설정한다.
+				  ==> 3항 연산자로 간단하게 처리.
+				ex) blocknum 3 ==> 15(X), 13(O)
+		*/
+		int endBlock = blocknum * sch.getBlocksize();
+		sch.setEndBlock(endBlock>sch.getPageCount()?sch.getPageCount():endBlock);
+		//		- 시작번호는 현재block의번호 (blocknum-1)*현재블럭크기 +1
+		sch.setStartBlock((blocknum-1)*sch.getBlocksize()+1);
+		System.out.println("시작block번호:"+sch.getStartBlock());
+		System.out.println("마지막block번호:"+sch.getEndBlock());
+		
 		
 		return dao.list(sch);
 	}

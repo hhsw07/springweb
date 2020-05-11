@@ -179,8 +179,21 @@
 				2) form:input path="모델속성" ==> id, name 자동으로 생성..
 				3) value를 할당하지 않더라도 자동으로 매핑처리된다.
 				
-			
-
+10. 페이지 block 처리
+	1) VO 속성 설정 : blockSize(한번에 보일 block의 크기)
+		startBlock : 시작 block번호, endBlock: 마지막 block번호
+	2) block 시작번호와 마지막번호를 저장처리
+		- service단 로직 처리..
+	3) 화면단 구현
+				 1  2  3  4  5  next
+		previous 6  7  8  9  10 next
+		previous 11 12
+	4) next와 previous를 클릭할 시,
+		block의 변경처리..
+		next를 클릭시, 현재 블럭의 마지막번호 + 1
+		previous를 클릭시, 현재블럭의 시작번호 -1
+		
+11. 계층
 
 
 

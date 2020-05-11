@@ -32,7 +32,7 @@
 		--%>
 		var refno = "${board.refno}";
 		var isReg= "${param.title}";
-		if(isReg!=""&&refno==""){
+		if(isReg!=""&&refno==0){
 			if(!confirm("등록 완료하였습니다\n계속 등록하시겠습니까?")){
 				$(location).attr("href","${path}/board.do?method=list");	
 			}
@@ -43,9 +43,9 @@
 			}
 		});	
 		$("#goMain").click(function(){
-			if(confirm("조회 화면 이동 합니다.")){
+			//if(confirm("조회 화면 이동 합니다.")){
 				$(location).attr("href","${path}/board.do?method=list");			
-			}
+			//}
 		});	
 		$(".custom-file-input").on("change",function(){
 			$(this).next(".custom-file-label").text($(this).val());

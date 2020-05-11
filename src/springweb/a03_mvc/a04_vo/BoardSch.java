@@ -7,16 +7,16 @@ public class BoardSch {
 	private String title;
 	private String writer;
 	// 2. 페이징 처리
-	private int count; // 총 데이터 건수
-	private int pageSize; // 한번에 보여줄 페이지 크기..
-	private int pageCount; // 총 페이지 수. count/pageSize
-	private int curPage; // 클릭한 현재 페이지번호
-	private int start;	// 화면에 보여줄 페이지의 시작번호
-	private int end;	// 화면에 보여줄 페이지의 마지막번호
+	private int count; 		// 총 데이터 건수
+	private int pageSize; 	// 한번에 보여줄 페이지 크기..
+	private int pageCount; 	// 총 페이지 수. count/pageSize
+	private int curPage; 	// 클릭한 현재 페이지번호
+	private int start;		// 화면에 보여줄 페이지의 시작번호
+	private int end;		// 화면에 보여줄 페이지의 마지막번호
 	// 3. 블럭 처리.
-	private int blocksize; // 한번에 보여줄 block의 크기
-	private int startBlock;	// 블럭의 시작번호
-	private int endBlock;	// 블럭의 마지막번호
+	private int blocksize;  // 한번에 보여줄 block의 크기
+	private int startBlock;	// block의 시작번호
+	private int endBlock;	// block의 마지막번호
 	
 	
 	public String getTitle() {
