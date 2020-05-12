@@ -37,8 +37,10 @@
 </head>
 
 <body>
-<div class="container">
+<div class="jumbotron text-center">
     <h2 align='center'></h2>
+</div>
+<div class="container">
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	  <form class="form-inline" method="post" action="${path}/emp.do?Method=list">
 		    <input class="form-control mr-sm-2" type="text" 

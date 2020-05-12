@@ -26,8 +26,15 @@
       selectable: true,
       selectMirror: true,
       select: function(arg) {
-        var title = prompt('Event Title:');
+        // 선택해서 등록 처리.
+        // arg 매개 객체로, 
+        // 시작일자와 시간 start, end
+        // 종일 여부를 가져온다.
+    	var title = prompt('Event Title:');
+        // 제목을 입력받아서..
         if (title) {
+          // calendar 메인 객체에 객체단위로,
+          // 일정을 등록 처리.
           calendar.addEvent({
             title: title,
             start: arg.start,
@@ -40,6 +47,7 @@
       editable: true,
       eventLimit: true, // allow "more" link when too many events
       events: [
+    	// 일정 리스트 내용을 대 한 부분을 json 데이터 처리.
         {
           title: 'All Day Event',
           start: '2020-05-01'
