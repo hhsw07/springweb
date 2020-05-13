@@ -8,11 +8,13 @@
 		<typeAlias alias="dept" type="springweb.a03_mvc.a04_vo.Dept"/>
 		<typeAlias alias="board" type="springweb.a03_mvc.a04_vo.Board"/>
 		<typeAlias alias="bsch" type="springweb.a03_mvc.a04_vo.BoardSch"/>
+		<typeAlias alias="Calen" type="springweb.a03_mvc.a04_vo.Calendar"/>
 	</typeAliases>
 	<mappers>
 		<!-- 실제 sql을 통해서 객체를 생성할 mapper.xml 선언. -->
 		<mapper resource="resource/mybatis/empMapper.xml"/>
 		<mapper resource="resource/mybatis/deptMapper.xml"/>
 		<mapper resource="resource/mybatis/boardMapper.xml"/>
+		<mapper resource="resource/mybatis/calMapper.xml"/>
 	</mappers>
 </configuration>

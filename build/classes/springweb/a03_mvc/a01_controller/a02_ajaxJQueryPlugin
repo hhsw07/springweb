@@ -42,26 +42,42 @@ create table calendar(
 	textColor varchar2(10),
 	allDay number -- 0 or 1
 );
-
 create sequence cal_seq
 	minvalue 1
 	maxvalue 999999
 	increment by 1
 	start with 1
 	cache 20;
-
 insert into calendar values(cal_seq.nextval,'업무회의',
 	'2020-05-20T09:00:00','2020-05-20T15:00:00','회의내용',
 	'#0099cc','#ccffff',0);
 
 # 4. ajax를 위한 서버단 json 데이터 list 처리
 	controller, dao, service단 구현. list 처리.
+	1) DB 처리.
+		sql 결과 확인
+		VO
+		Dao public ArrayList<Calendar> list();
+		Mapper.xml 등록
+		Service
+		Controller 구현..
+	
 	1. 스프링에서 json 데이터를 처리하는 view 설정..
 	2. emplist기준으로 jquery ajax 처리를 통한 화면 로딩..
 	
 
-
-
+# 5. View단에서 jquery ajax를 통한 데이터  로딩 처리.
+	1) 등록 데이터 설정 및 화면 UI 선택..
+	insert into calendar values(cal_seq.nextval,'프로그래밍랩',
+	'2020-05-14T09:00:00','2020-05-14T15:00:00','프로그래밍랩',
+	'#0099cc','#ccffff',1);
+	제목, 내용, 시작일, 마지막일, 배경색상, 글자색상, 종일여부.
+	2) jquery Dialogue 활용처리.(UI)
+		- dialogue form 선언.
+		- jquery dialogue 호출과 이벤트 처리.
+		- 입력할 내용을 ajax로 전달 처리.
+		- 
+	
 
 
 

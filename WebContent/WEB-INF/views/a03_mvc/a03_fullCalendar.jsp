@@ -32,7 +32,9 @@
     max-width: 900px;
     margin: 0 auto;
   }
-
+  input[type=text], select, label, textarea{
+  	margin-bottem:12px; padding:.4em; width:95%;
+  }
 </style>
 <link href='${path}/a00_com/packages/daygrid/main.css' rel='stylesheet' />
 <link href='${path}/a00_com/packages/timegrid/main.css' rel='stylesheet' />
@@ -69,8 +71,15 @@
 	    	var event = info.event;
 	    	alert(event.title+":"+event.start.toISOString());
 	    	console.log(event); // 이벤트의 모든 속성을 확인할 수 있다.
+	    						// 확인 후 필요한 속성을 사용한다.
 	      },
 	      select: function(arg) {
+	    	alert("시작일:"+arg.start+" 마지막일:"+arg.end);
+	    	$("#inScheFrm [name=start]").val(arg.start.toISOString());
+	    	$("#inScheFrm [name=end]").val(arg.end.toISOString());
+	    	$("#inScheFrm").dialog("open");
+	    	
+	    	/*
 	    	// 선택해서 등록 처리.
 	        // arg 매개 객체로, 
 	        // 시작일자와 시간 start, end
@@ -89,9 +98,11 @@
 	          })
 	        }
 	        calendar.unselect()
+	        */
 	      },
 	      editable: true,
 	      eventLimit: true, // allow "more" link when too many events
+	      /* fullCalendar 기본 데이터
 	      events: [
 	    	// 일정 리스트 내용을 대 한 부분을 json 데이터 처리.
 	    	// title, start, end, groupId, url
@@ -153,11 +164,40 @@
 	          start: '2020-05-28'
 	        }
 	      ]
+	      */
+	      events : function(info, successCallback, failureCallback){
+	    	  // 서버에서 비동기 통신으로 데이터 가져오기.
+	    	  $.ajax({
+	    		  type:"post",
+	    		  url:"${path}/calendar.do?method=data",
+	    		  dataType:"json",
+	    		  success:function(data){
+	    			  // alert("성공"+data.callist.length);
+	    			  console.log(data.callist);
+	    			  successCallback(data.callist);
+	    		  },
+	    		  error:function(err){
+	    			  alert("에러");
+	    			  console.log(err);
+	    		  }
+	    		  
+	    	  });
+	      }
 	    });
 
 	    calendar.render();
 		
+	    $("#inScheFrm").dialog({
+	    	autoOpen:false,
+	    	button:{
+	    		"등록":function(){
+	    			
+	    		}
+	    	},
+	    	modal:true
+	    });
 	});
+	
 </script>
 </head>
 
@@ -167,6 +207,33 @@
 </div>
 <div class="container">
 	<div id='calendar'></div>    
+	<div id="inScheFrm" title="일정등록">
+		<form id="inputfrm" >
+			<label>제목</label>
+			<input id="title" name="title" type="text"/>
+			<label>내용</label>
+			<textarea rows="5" cols="20" name="content"></textarea>
+			<label>종일여부</label>
+			<select name="allday">
+				<option value="true"> 종 일 </option>
+				<option value="false"> 시 간 </option>
+			</select>
+			<label>시작일</label>
+			<input type="text" name="start"/>
+			<label>종료일</label>
+			<input type="text" name="end"/>
+			<label>배경색상</label>
+			<input type="color" name="color" value="#0099cc"/>
+			<label>글자색상</label>
+			<input type="color" name="textColor" value="#ccffff"/>
+		</form>
+	</div>
 </div>
+<!-- 
+# dialogue 처리.
+1. form
+2. jquery 호출..
+-->
+
 </body>
 </html>

@@ -54,6 +54,8 @@
 				data: $("form").serialize(),
 				dataType: "json",
 				success: function(data){
+					
+					// data.모델명 과 동일해야한다.
 					var elist = data.elist;
 					// $("h2").text("검색데이터크기:"+ elist.length);
 					var show = "";
@@ -65,11 +67,11 @@
 						show += '<td  class="text-left">'+emp.job+'</td>';
 						show += '<td>'+emp.mgr+'</td>';
 						var dt = new Date(emp.hiredate);
-						show += '<td>'+dt.toLocaleDateString()+'</td>';
-						var sal = emp.sal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-						show += '<td class="text-right">'+sal+'</td>';
-						var comm = emp.comm.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-						show += '<td class="text-right">'+comm+'</td>';
+						// dt.toLocaleString() : 날짜  1980. 12. 17.
+						// dt.toLocaleTimeString() : 시간  오전 12:00:00
+						show += '<td>'+dt.toLocaleString()+'</td>';
+						show += '<td class="text-right">'+comma(emp.sal)+'</td>';
+						show += '<td class="text-right">'+comma(emp.comm)+'</td>';
 						show += '<td>'+emp.deptno+'</td></tr>';
 							
 						/*
@@ -99,6 +101,11 @@
 		
 		
 	});
+	
+	function comma(str) {
+        str = String(str);
+        return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, '$1,');
+    }
 </script>
 </head>
 
