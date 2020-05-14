@@ -95,8 +95,9 @@
  	</delete>  	
  	<!-- org, tar, no 
  	#{속성} : preparedStatement로 처리. ? 데이터type과 matching되게 처리..
- 	
+ 				column이 있는 경우 매개값으로 처리.
  	${속성} : 동적 query 설정  '"+name+"'
+ 				query를 조건에 따라서 만들어 처리.
  				
  	아래에 tar, no, org가 동일한 문자열 형식이기때문  #{속성}으로 하면
  	no에 'no'로 들어갈 가망성이 있어 동적query를 사용하여 활용하였다.

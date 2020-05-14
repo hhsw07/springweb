@@ -134,9 +134,11 @@
 		<div class="input-group-prepend">
 			<span class="input-group-text">첨부 파일( ${sts.count} / 3 )</span>
 		</div>
+		<!-- 등록된 파일 정보..(fnames(기존파일) ==> vo의 property) -->
 		<input class="form-control fileInfo" name="fnames"
 			value="${board.filenames[sts.index-1]}" />	
 		<div class="custom-file">
+		<!-- 변경할 파일 정보 (report(수정파일) ==> vo의 property-->
 			<input type="file" name="report" 
 				class="custom-file-input" id="file01"/>
 			<label class="custom-file-label" for="file01">

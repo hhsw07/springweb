@@ -18,18 +18,18 @@ public class Calendar {
 	private String end;
 	private String content;
 	private String color;		// 배경색
-	private String textcolor;	// 글자색
+	private String textColor;	// 글자색
 	// DB의 int allday => boolean allday로 변경
 	// calMapper.xml 에서 자동할당
-	private boolean allday;
+	private boolean allDay;
 	
 	
 	public Calendar() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Calendar(int id, String title, String start, String end, String content, String color, String textcolor,
-			boolean allday) {
+	public Calendar(int id, String title, String start, String end, String content, String color, String textColor,
+			boolean allDay) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -37,8 +37,8 @@ public class Calendar {
 		this.end = end;
 		this.content = content;
 		this.color = color;
-		this.textcolor = textcolor;
-		this.allday = allday;
+		this.textColor = textColor;
+		this.allDay = allDay;
 	}
 	
 	public int getId() {
@@ -77,17 +77,17 @@ public class Calendar {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public String getTextcolor() {
-		return textcolor;
+	public String getTextColor() {
+		return textColor;
 	}
-	public void setTextcolor(String textcolor) {
-		this.textcolor = textcolor;
+	public void setTextColor(String textColor) {
+		this.textColor = textColor;
 	}
-	public boolean isAllday() {
-		return allday;
+	public boolean isAllDay() {
+		return allDay;
 	}
-	public void setAllday(boolean allday) {
-		this.allday = allday;
+	public void setAllDay(boolean allDay) {
+		this.allDay = allDay;
 	}
 	
 }

@@ -111,7 +111,8 @@ public class A01_BoardService {
 	public void update(Board update) {
 		/*
 		데이터 수정 처리
-		 * */ 
+		1. 
+		*/
 		dao.updateBoard(update);
 		// 파일 수정 정보 처리
 		upload2(update);
@@ -159,7 +160,8 @@ public class A01_BoardService {
 	}
 	// 파일 수정, 파일 정보 수정..
 	private void upload2(Board upt) {
-		
+		// upt.getReport() : 수정파일 정보(배열)
+		// upt.getFnames() : 기본 파일 정보(배열)
 		MultipartFile[] files = upt.getReport();
 		for(int idx=0;idx<files.length;idx++) {
 			String fileName=files[idx].getOriginalFilename();
@@ -177,8 +179,6 @@ public class A01_BoardService {
 				// 마지막에 올린 파일로 변경 처리..
 					Files.copy(tmpFile.toPath(), orgFile.toPath(), 
 								StandardCopyOption.REPLACE_EXISTING);
-					
-					
 				} catch (IllegalStateException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -186,6 +186,16 @@ public class A01_BoardService {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				/*
+				# 파일 수정에 대한 DB처리..
+				1. 게시물 고유번호 no, 기존 파일, 변경할파일 정보.
+				2. HashMap no : 게시물 글번호
+						   tar : 변경할 파일명
+						   org : 기존 파일명..
+				3. 기존 파일을 대체하는 경우 : update
+				      기존에 없는 파일을 추가 처리하는 경우 : insert
+				*/
+				
 				// org, tar, no
 				String fnm = upt.getFnames()[idx];
 				HashMap<String, String> hm = new HashMap<String, String>();

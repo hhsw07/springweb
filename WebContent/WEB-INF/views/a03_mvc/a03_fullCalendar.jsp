@@ -35,6 +35,9 @@
   input[type=text], select, label, textarea{
   	margin-bottem:12px; padding:.4em; width:95%;
   }
+  .input-group-text{width:100%;
+  		text-align:center;background-color:#cfffdf;color:black;font-weight:bolder;}
+  .input-group-prepend{width:35%;}  
 </style>
 <link href='${path}/a00_com/packages/daygrid/main.css' rel='stylesheet' />
 <link href='${path}/a00_com/packages/timegrid/main.css' rel='stylesheet' />
@@ -74,9 +77,13 @@
 	    						// 확인 후 필요한 속성을 사용한다.
 	      },
 	      select: function(arg) {
-	    	alert("시작일:"+arg.start+" 마지막일:"+arg.end);
+	    	// arg매개변수를 통해, 클릭한 날짜와 시간의 데이터 가져다 준다.
+	    	// alert("시작일:"+arg.start+" 마지막일:"+arg.end);
+	    	console.log("## event의 속성 ##");
+	    	console.log(arg); // 객체가 가지고 있는 속성 표기.
 	    	$("#inScheFrm [name=start]").val(arg.start.toISOString());
 	    	$("#inScheFrm [name=end]").val(arg.end.toISOString());
+	    	$("#inScheFrm [name=allDay]").val(""+arg.allDay);
 	    	$("#inScheFrm").dialog("open");
 	    	
 	    	/*
@@ -166,7 +173,13 @@
 	      ]
 	      */
 	      events : function(info, successCallback, failureCallback){
+	    	  // function succexxCallback(데이터){}
+	    	  // 	json데이터를 화면에 리스트하는 함수.
+	    	  // function(info, 함수1, 함수2)
+	    	  
+	    	  
 	    	  // 서버에서 비동기 통신으로 데이터 가져오기.
+	    	  // localhost:5080/springweb/calendar.do?method=data
 	    	  $.ajax({
 	    		  type:"post",
 	    		  url:"${path}/calendar.do?method=data",
@@ -174,6 +187,8 @@
 	    		  success:function(data){
 	    			  // alert("성공"+data.callist.length);
 	    			  console.log(data.callist);
+	    			  // 함수의 기능 내용을 처리
+	    			  // json 객체의 내용을 리스트 처리.
 	    			  successCallback(data.callist);
 	    		  },
 	    		  error:function(err){
@@ -189,9 +204,40 @@
 		
 	    $("#inScheFrm").dialog({
 	    	autoOpen:false,
-	    	button:{
+	    	buttons:{
 	    		"등록":function(){
-	    			
+	    			//alert("등록처리 & ajax");
+	    			var addSch = {};
+	    			addSch.title = $("#inScheFrm [name=title]").val();
+	    			addSch.start = $("#inScheFrm [name=start]").val();
+	    			addSch.end = $("#inScheFrm [name=end]").val();
+	    			addSch.content = $("#inScheFrm [name=content]").val();
+	    			addSch.color = $("#inScheFrm [name=color]").val();
+	    			addSch.textColor = $("#inScheFrm [name=textColor]").val();
+	    			// boolean 값으로 넣어준다.
+	    			addSch.allDay = $("#inScheFrm [name=allDay]").val()=="true";
+	    			// 1. 화면에서 등록..
+	    			if(addSch.title){ // 타이틀값이 있으면..
+	    				calendar.addEvent(addSch);
+	    			}
+	    			// 2. ajax로 DB등록
+	    			// calendar.do?method=insert
+	    			$.ajax({
+	    				type:"post",
+	    				url:"${path}/calendar.do?method=insert",
+	    				data:addSch, // 요청데이터 전송 json객체형식 가능
+	    				success:function(){
+	    					alert("등록완료!");
+	    				},
+	    				error:function(err){
+	    					alert("에러");
+	    					console.log(err)
+	    				}
+	    			});
+	    					
+	    			// 3. 등록 후 dialog 초기화
+	    			// $("#inScheFrm #inputfrm").reset();
+	    			$("#inScheFrm").dialog("close");
 	    		}
 	    	},
 	    	modal:true
@@ -208,24 +254,52 @@
 <div class="container">
 	<div id='calendar'></div>    
 	<div id="inScheFrm" title="일정등록">
-		<form id="inputfrm" >
-			<label>제목</label>
-			<input id="title" name="title" type="text"/>
-			<label>내용</label>
-			<textarea rows="5" cols="20" name="content"></textarea>
-			<label>종일여부</label>
-			<select name="allday">
-				<option value="true"> 종 일 </option>
-				<option value="false"> 시 간 </option>
-			</select>
-			<label>시작일</label>
-			<input type="text" name="start"/>
-			<label>종료일</label>
-			<input type="text" name="end"/>
-			<label>배경색상</label>
-			<input type="color" name="color" value="#0099cc"/>
-			<label>글자색상</label>
-			<input type="color" name="textColor" value="#ccffff"/>
+		<form id="inputfrm">
+			<div class="input-group mb-3">	
+				<div class="input-group-prepend">
+					<span class="input-group-text">제목</span>
+				</div>		
+				<input id="title"  class="form-control"  name="title" type="text"/>
+			</div>
+			<div class="input-group mb-3">	
+				<div class="input-group-prepend">
+					<span class="input-group-text">내용</span>
+				</div>		
+				<textarea rows="5"  class="form-control"  cols="20" name="content"></textarea>
+			</div>		
+			<div class="input-group mb-3">	
+				<div class="input-group-prepend">
+					<span class="input-group-text">종일여부</span>
+				</div>		
+				<select name="allDay"  class="form-control" >
+					<option value="true"> 종 일 </option>
+					<option value="false"> 시 간 </option>
+				</select>	
+			</div>
+			<div class="input-group mb-3">	
+				<div class="input-group-prepend">
+					<span class="input-group-text">시작일(ISO)</span>
+				</div>		
+				<input class="form-control"  name="start" type="text"/>
+			</div>
+			<div class="input-group mb-3">	
+				<div class="input-group-prepend">
+					<span class="input-group-text">종료일(ISO)</span>
+				</div>		
+				<input class="form-control"  name="end" type="text"/>
+			</div>
+			<div class="input-group mb-3">	
+				<div class="input-group-prepend">
+					<span class="input-group-text">배경색상</span>
+				</div>		
+				<input name="color"  class="form-control"  type="color" value="#0099cc"/>
+			</div>
+			<div class="input-group mb-3">	
+				<div class="input-group-prepend">
+					<span class="input-group-text">글자색상</span>
+				</div>		
+				<input name="textColor"  class="form-control"  type="color" value="#ccffff"/>
+			</div>
 		</form>
 	</div>
 </div>

@@ -19,5 +19,11 @@
 	<select id="list" resultMap="calResult" >
 		SELECT * FROM CALENDAR
 	</select>
+	<!-- void insertCal(Calendar ins) -->
+	<insert id="insertCal" parameterType="calen">
+		insert into calendar values(cal_seq.nextval,#{title},
+			#{start},#{end},#{content},
+			#{color},#{textColor},#{allDay})
+	</insert>
 </mapper>
 	
