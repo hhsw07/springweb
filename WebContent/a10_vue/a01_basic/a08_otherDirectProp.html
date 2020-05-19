@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>행복한 하루</title>
+<script src="https://unpkg.com/vue/dist/vue.js" type="text/javascript"></script>
+</head>
+<!-- 
+# 기타 directive 속성들
+1. v-pre: 컴파일을 수행하지 않음.
+2. v-once: 초기화면에 한번만 수행하고 변경되지 않음.
+3. 계산형 속성
+	computed:{
+		함수명:function(){
+			return 리턴값;
+		}
+	}
+	화면단
+		{{함수명}} 리턴값을 가지고 처리한다.
+-->
+<body>
+	<div id="show">
+		입력:<input v-model="msg" /><br>
+		<h2 align="center">{{msg}}</h2>
+		<h2 v-pre>{{msg}}</h2>
+		<h2 v-once>{{msg}}</h2>
+		물건가격:<input v-model="price" /><br>
+		개수:<input v-model="cnt" /><br>
+		<h2>총비용은 {{tot}}원입니다.</h2>
+		id:<input v-model="id" />
+		pass:<input type="password" v-model="pass"/><br>
+		<h2>{{login}}</h2>
+	</div>
+	
+</body>
+<script type="text/javascript">
+/*
+ex) id:[ ] pass:[ ]
+	id와 pass 입력시 바로 인증여부를 computed의 함수에 의해서,
+	출력처리..
+
+*/
+	var vm = new Vue({
+		el:"#show",
+		data:{msg:"시작!!", price:0, cnt:0, id:"", pass:""},
+		computed:{
+			tot:function(){
+				// Vue객체의 모델 데이터를 호출
+				// this.cnt : 모델데이터를 접근..
+				return this.cnt*this.price;
+			},
+			login:function(){
+				var ret = "로그인 실패";
+				if(this.id == "" || this.pass == ""){
+					ret = "아이디와 패스워드 입력하세요!";
+				}else if(this.id == "himan" && this.pass==7777){
+					ret = "로그인 성공"
+				}
+				
+				return ret;
+			}
+		}
+	});
+</script>
+</html>

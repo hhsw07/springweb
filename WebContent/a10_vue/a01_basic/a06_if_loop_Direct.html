@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>행복한 하루</title>
+<script src="https://unpkg.com/vue/dist/vue.js" type="text/javascript"></script>
+</head>
+<!-- 
+# 조건 반복 directive
+1. v-show="boolean값"
+	일단 화면에 로딩후, 특정 조건에 맞을 때,
+	css로 보이게 하고, 그렇지 않을 때, 보이지 않게 처리할 때 사용된다.
+	1) 기본 형식
+	<태그 v-show="모델속성>=조건데이터">
+2. v-if
+	요소객체 안에 속성으로 v-if를 활용하면, 해당 요소객체가 v-if의
+	속성값으로 true값일 때만 보이게 초기에
+	랜더링 처리할 수 있다.
+	1) 기본 형식
+		v-if="모델데이터조건1"
+		v-else-if="모델데이터조건2"
+		v-else 위에서 선언한 조건 이외일 때
+
+-->
+<body>
+	<div id="show">
+		<h2 align="center">{{msg}}</h2>
+		사과의 가격:<input v-model="price" /><br>
+		<img :src="img01" v-show="price>=3000" /><br>
+		<br>
+		<h3>획득한 점수:<input v-model="point" /></h3>
+		<h3 v-show="point>=80">합격</h3>
+		<h3 v-show="point<80 && point>0">불합격</h3>
+		<h3 v-show="point==0">점수를 입력하세요.</h3>
+		구매한 금액:<input v-model="pay" />
+		회원의 등급:
+		<span v-if="pay>=1000000">Gold</span>
+		<span v-else-if="pay>=500000">Silver</span>
+		<span v-else-if="pay>=200000">Bronze</span>
+		<span v-else>Basic</span>
+	</div>
+	
+</body>
+<script type="text/javascript">
+/*
+exp) 획득한 점수: [  ]
+	점수에 따라서 h3로 80점 이상일 때, 합격
+				80점 미만일 때, 불합격이 보이게 처리.
+				v-show로 처리하세요.
+*/
+	var vm = new Vue({
+		el:"#show",
+		data:{msg:"반복 조건 Directive!!",
+			  price:0,
+			  img01:"apple.jpg",
+			  point:0,
+			  pay:0}
+	});
+
+</script>
+</html>

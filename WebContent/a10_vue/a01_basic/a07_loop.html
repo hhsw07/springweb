@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>행복한 하루</title>
+<script src="https://unpkg.com/vue/dist/vue.js" type="text/javascript"></script>
+</head>
+<!-- 
+# v-for를 통한 배열형 데이터의 반복문 처리.
+1. model 데이터가 객체형 배열일 때,
+	반복데이터를 화면에 list형식으로 출력할 수 있다.
+2. 기본 형식
+	1) 요소 객체 v-for="(단위객체, index) in 객체형배열모델"
+		{{단위객체.속성}}
+-->
+<body>
+	<div id="show">
+		<h2 align="center">{{msg}}</h2>
+		<table align="center" border>
+			<tr><th>번호</th><th>이름</th><th>국어</th><th>영어</th><th>수학</th></tr>
+			<tr v-for="(stud,index) in students">
+				<td>{{index+1}}</td>
+				<td>{{stud.name}}</td>
+				<td>{{stud.kor}}</td>
+				<td>{{stud.eng}}</td>
+				<td>{{stud.math}}</td>
+			</tr>
+		</table>
+		<h2 align="center">{{title}}</h2>
+		<table align="center" border>
+			<tr><th>사원번호</th><th>사원명</th><th>직책</th><th>급여</th></tr>
+			<tr v-for="(emp,index) in empList">
+				<td>{{emp.empno}}</td>
+				<td>{{emp.ename}}</td>
+				<td>{{emp.job}}</td>
+				<td>{{emp.sal}}</td>
+			</tr>
+		</table>
+	</div>
+	<!-- 
+	ex) model 데이터로 사원정보 사원번호, 사원명, 직책, 급여의 속성으로 
+		5개 데이터를 선언하고, 테이블로 출력처리 하세요.
+		//emp.do?Method=ajaxList
+	-->
+</body>
+<script type="text/javascript">
+	var vm = new Vue({
+		el:"#show",
+		data:{msg:"반복 directive!!",
+			  students:[
+				  {name:"홍길동",kor:70,eng:80,math:90},
+				  {name:"신길동",kor:80,eng:80,math:80},
+				  {name:"마길동",kor:80,eng:68,math:98},
+				  {name:"오길동",kor:90,eng:89,math:92},
+				  {name:"하길동",kor:80,eng:70,math:91} ],
+			  title:"사원정보",
+			  empList:[
+				  {empno:7780,ename:"홍길동",job:"사원",sal:3000},
+				  {empno:7781,ename:"신길동",job:"대리",sal:4000},
+				  {empno:7782,ename:"마길동",job:"과장",sal:5000},
+				  {empno:7783,ename:"오길동",job:"부장",sal:6000},
+				  {empno:7784,ename:"하길동",job:"사장",sal:7000}
+			  ]}
+	});
+</script>
+</html>
