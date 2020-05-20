@@ -128,6 +128,24 @@
 		<property name="contentType" value="text/html;charset=utf-8" />
 	</bean>
 
+	<!-- 메일 보내기 -->
+	<!-- SMTP 서버 설정 -->
+	<bean id="mailSender"
+		class="org.springframework.mail.javamail.JavaMailSenderImpl" >
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+		<!-- gmail에 등록한 계정과 비밀번호 입력 -->
+		<property name="username" value="hhsw07@gmail.com" />
+		<property name="password" value="rmffnel2" />
+		<!-- 보안 관련 설정. -->
+		<property name="javaMailProperties" >
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+			</props>
+		</property>
+	</bean>
+
 
 
 
