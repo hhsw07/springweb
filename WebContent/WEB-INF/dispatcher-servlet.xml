@@ -32,6 +32,22 @@
 		<context:include-filter type="annotation" 
 			expression="org.springframework.stereotype.Repository"/>				
 	</context:component-scan>	
+	<!-- chatting 기능 -->
+	<!-- handler를 처리하기 위한 urlmapping 방식과 adatper 설정 -->
+	<bean id="annotationUrlMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	<bean id="controllerClassNameHandlerMapping" class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
+	<bean id="annotationMethodHandlerAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+	<!-- socket handler를 처리하기 위한 기능 servlet-handler 선언 -->
+	<mvc:default-servlet-handler/>
+	<!-- url 패턴에 의해 호출될  handler를 선언.
+		 clinet에서 chat-ws.do 라고 했을 때, handler가 처리 되도록 설정
+		 http://localhost:5080/springweb/chat-ws.do
+	-->
+	<websocket:handlers>
+		<websocket:mapping handler="chatHandler" path="/chat-ws.do"/>
+	</websocket:handlers>
+	
+	
 	<!-- 공통 정보 파일 로딩 -->
 	<context:property-placeholder location="classpath:/resource/properties/info"/>
 	<!-- 

@@ -5,9 +5,11 @@
 	1) 한 명의 클라이언트가 메시지를 소켓통신을 통해 서버에 전달하면
 	2) 서버는 push방식으로 접속한 클라이언트에게 메시지를 전달한다.
 3. 개발 순서
-	0) 기본 chatting Handler 선언
+	0) 기본 chatting Handler 선언(A03_ChattingHandler.java)
 		- 사용자 정의에 의해 만듦
-	1) container 등록
+		- push 방식에 의해서 client에 전달
+		- chatting Handler와 연결되어 있는 js의 socket모듈에 의해 처리된다.
+	1) container 등록(dispatcher-servlet.xml)
 		- push방식으로 데이터를 전송할 수 있게 채팅 모듈을 등록한다.
 		  handler와 url을 매핑 등록..
 	2) 기본 채팅 화면 구현
@@ -15,4 +17,36 @@
 		- 채팅화면 ui를 jsp로 구현.
 	3) 채팅 화면단 web socket를 통해 서버와 연동 처리
 		- js로 서버와 연동 처리 내용 구현.
-		
+4. 서버에 있는 chatting Handler 개발
+	1) 소켓 통신을 위한 TextWebSocketHandler를 상속
+	2) 주요 핵심 메서드 overriding
+		- client의 접속에 대한 처리 메서드
+			afterConnectionEstablished
+		- client에서 온 메시지를 받아서, 접속한 client에게 전달하는 메서드
+			handleTextMessage
+			cf)조건을 지정하여 일부 client에게만 메시지를 전달할 수 있음.
+		- client가 접속을 종료했을 때, 처리 메서드
+			afterConnectionClosed
+		- socket 통신 도중에 예외가 발생했을 때, 처리할 메서드
+			handleTransportError
+	3) 전역필드로 선언하여야 할 내용
+		- 접속한 client정보를 저장할 Map의 객체.
+			users(유저정보)
+	4) 처리 프로세스
+		- client의 접속 session과 기본 정보를 
+		  afterConnectionEstablished메서드에 의해서 수행되고,
+		  users에 put으로 누적 추가된다.
+		- handleTextMessage에 의해서 client에 온 메시지를 받아,
+		    현재 접속한 모든 client인 users에 sendMessage를 통해서
+		    메시지를 전달.
+		- 일정 client가 접속을 종료하는 경우 afterConnectionClosed가
+		    호출되고, users에 있는 특정 client 정보가 삭제 처리된다.
+
+			
+
+
+
+
+
+
+
