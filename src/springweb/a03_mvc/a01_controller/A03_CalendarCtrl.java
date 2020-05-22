@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import springweb.a03_mvc.a02_service.A03_CalenService;
 import springweb.a03_mvc.a04_vo.Calendar;
@@ -35,10 +36,25 @@ public class A03_CalendarCtrl {
 	// http://localhost:5080/springweb/calendar.do?method=insert
 	@RequestMapping(params="method=insert")
 	public String calInsert(Calendar ins) {
+		System.out.println("### 등록 호출 ## ");
 		service.insertCal(ins);
+		return "pageJsonReport";
+	}
+	@RequestMapping(params="method=update")
+	public String update(Calendar update) {
+		System.out.println("수정:"+update.getId());
+		
+		service.update(update);
 		
 		return "pageJsonReport";
 	}
+	@RequestMapping(params="method=delete")
+	public String delete(@RequestParam("id") int id) {
+		System.out.println("id:"+id);
+		//service.insert(insert);
+		service.delete(id);
+		return "pageJsonReport";
+	}	
 	
 }
 

@@ -12,18 +12,33 @@
 	3. column의 데이터 유형이 number(1) 1 ==> boolean true
 								  0	==> boolean false 자동 할당.				
 -->
-	<resultMap type="calen" id="calResult" >
-		<result property="start" column="start1"/>
-		<result property="end" column="end1"/>
-	</resultMap>
-	<select id="list" resultMap="calResult" >
-		SELECT * FROM CALENDAR
-	</select>
-	<!-- void insertCal(Calendar ins) -->
-	<insert id="insertCal" parameterType="calen">
-		insert into calendar values(cal_seq.nextval,#{title},
+	<resultMap type="calen" id="calResult">
+ 		<result property="start" column="start1"/>
+ 		<result property="end" column="end1"/>
+ 	</resultMap>
+ 	<select id="list" resultMap="calResult" >
+		SELECT * FROM calendar
+ 	</select>
+ 	<!-- insertCal(Calendar ins) -->
+ 	<insert id="insertCal" parameterType="calen">
+ 		insert into calendar values(cal_seq.nextval,#{title},
 			#{start},#{end},#{content},
-			#{color},#{textColor},#{allDay})
-	</insert>
+			#{color},#{textColor},#{allDay} )
+ 	</insert> 
+ 	<update id="update"  parameterType="calen">
+		UPDATE calendar 
+		   SET title = #{title},
+			start1 = #{start},
+			end1 = #{end},
+			content = #{content},
+			color = #{color},
+			textcolor = #{textColor},
+			allday = #{allDay}
+	    WHERE id = #{id}
+	</update>
+	<delete id="delete"   parameterType="int">
+		DELETE FROM calendar
+		WHERE id = #{id}
+	</delete>
 </mapper>
 	

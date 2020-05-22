@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>행복한 하루</title>
+<script src="https://unpkg.com/vue/dist/vue.js" type="text/javascript"></script>
+<!-- fetch.js cdn 검색 후 작성 -->
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<!-- es6-promeis cdn 검색 후 작성 -->
+<script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js" type="text/javascript"></script>
+</head>
+<!-- 
+# key를 통한 검색 처리.
+1. key 이벤트 처리.
+	1) v-on:keyup="함수명"
+		@keyup="함수명"
+	
+-->
+<body>
+	<div id="show">
+		<h2 align="center">{{msg}}</h2>
+		<p align="center">
+		사원명: <input type="text" v-model="name" placeholder="사원명을 입력하세요." v-on:keyup="search" /><br>
+		</p>
+		<!-- 
+		{no: 1590119938336, name: "Annabelle Phillips", tel: "010-3456-8284", 
+		 address: "서울시", photo: "http://sample.bmaster.kro.kr/photos/85.jpg"}
+		-->
+		<table align="center" border>
+			<tr>
+				<th>번호</th>
+				<th>이름</th>
+				<th>전화번호</th>
+				<th>주소</th>
+				<th>사진</th>
+			</tr>
+			<tr v-for="contact in contactlist">
+				<td>{{contact.no}}</td>
+				<td>{{contact.name}}</td>
+				<td>{{contact.tel}}</td>
+				<td>{{contact.address}}</td>
+				<td><img :src="contact.photo" /></td>
+			</tr>
+		</table>
+	</div>
+	
+</body>
+<script type="text/javascript">
+	var vm = new Vue({
+		el:"#show",
+		data:{msg:"key이벤트로 검색!!", name:"",
+			  contactlist:[]},
+		methods:{
+			search:function(e){
+				// console.log("키코드값: "+e.keyCode);
+				// e.keyCode : 입력한 코드값
+				// e.target.value : 엔터를 입력했을 때, 해당 객체의 입력값
+				if(e.keyCode == 13){	// 엔터 : keyCode 13
+					console.log("검색된 값: "+e.target.value);
+					console.log("모델의 name값: "+this.name);
+					// 입력한 글자가 2글자 이상일 때
+					if(this.name.length>=2){
+						// 현재 객체의 메서드명fetchContacts를 호출한다.
+						this.fetchContacts();
+					}
+				}
+			},
+			fetchContacts:function(){
+				// ajax의 비동기화
+				// 모델데이터 초기화
+				this.contractlist=[];
+				// 비동기로 처리할 url 주소..
+				var url = "http://sample.bmaster.kro.kr/contacts/search/"+this.name;
+				/*
+				비동기방식
+				1. ?
+				2. js
+				3. vue
+				4. @@@
+				
+				# fetch api를 통한 비동기 통신 처리..
+				1. 기본 형식
+					fetch(url).then(함수1).then(함수2).catch(함수3)
+					1) url : 요청할 주소
+					2) 함수1 : 서버에서 받은 response
+						function(response){
+							// json 데이터만 걸러서 넘겨준다.
+							return response.json();
+						}
+					3) 함수2 : 함수1d에서 온 return값을 매개값으로 받아서 처리
+						function(json){
+							받은 json데이터 객체로 vue화면 구성 처리
+						}
+					4) 함수3 : 위에 내용을 처리했을 때, 예외에 대한 함수 처리.
+					}
+				*/
+				var vm = this; // 현재 Vue 객체를 fetch api
+							   // 함수 안에 쓰기 위해 이름을 지정.
+				fetch(url).then(function(response){
+					console.log("## 서버에서 온 response값 ##");
+					console.log(response);
+					return response.json();
+				}).then(function(json){
+					console.log("## 서버에서 온 json데이터 ##");
+					console.log(json);
+					
+					// 서버에서 온 json 데이터를 model데이터로 mapping
+					// this: fetch 구분..
+					// 모델데이터에 mapping 처리.
+					// ajax로 온 json 데이터를 model데이터에 mapping
+					vm.contactlist=json;
+					
+				}).catch(function(err){
+					console.log("## 에러 발생 ##");
+					console.log(err);
+				});
+			}
+		}
+	});
+</script>
+</html>
