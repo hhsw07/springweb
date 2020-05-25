@@ -31,7 +31,9 @@
 			expression="org.springframework.stereotype.Service"/>
 		<context:include-filter type="annotation" 
 			expression="org.springframework.stereotype.Repository"/>				
-	</context:component-scan>	
+	</context:component-scan>
+	
+		
 	<!-- chatting 기능 -->
 	<!-- handler를 처리하기 위한 urlmapping 방식과 adatper 설정 -->
 	<bean id="annotationUrlMapping" class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
