@@ -15,6 +15,7 @@ import springweb.a03_mvc.a04_vo.BoardSch;
 @RequestMapping("/board.do")
 public class A01_BoardCtrl {
 	// http://localhost:5080/springweb/board.do?method=list
+	// http://localhost:5080/springweb/board.do?method=Ajaxlist
 	// http://localhost:5080/springweb/board.do?method=insert
 	// http://localhost:5080/springweb/board.do?method=detail
 	// http://localhost:5080/springweb/board.do?method=update
@@ -31,7 +32,7 @@ public class A01_BoardCtrl {
 	@RequestMapping(params="method=Ajaxlist")
 	public String ajaxlist(BoardSch sch, Model d) {
 		d.addAttribute("blist", service.list(sch));
-		return "jsonReport";
+		return "pageJsonReport";
 	}	
 	@RequestMapping(params="method=insForm")
 	public String insertForm() {
@@ -88,7 +89,12 @@ public class A01_BoardCtrl {
 	
 	
 	
-	
+	@RequestMapping(params="method=excel")
+	public String excel(Model d) {
+		System.out.println("데이터 크기:"+service.getAllList().size());
+		d.addAttribute("blist", service.getAllList());
+		return "pageJsonReport"; // View 호출
+	}
 	
 	
 

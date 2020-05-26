@@ -34,6 +34,11 @@
 				$(location).attr("href","${path}/board.do?method=insForm");
 			}
 		});
+		$("#excelBtn").click(function(){
+			if(confirm("엑셀다운로드\n하시겠습니까?")){
+				$(location).attr("href","${path}/board.do?method=excel");
+			}
+		});
 		$("#pageSize").change(function(){
 			$("#curPage").val(1);	// 페이지크기를 바꾸면 초기 첫페이지가 나오도록 처리
 			$("form").submit();
@@ -64,6 +69,7 @@
 	  <form:input class="form-control mr-sm-2" path="writer" placeholder="작성자" />
 	  <button class="btn btn-success" type="submit">Search</button>
 	  <button class="btn btn-info" id="regBtn" type="button">Registe</button>
+	  <button class="btn btn-warning" id="excelBtn" type="button">Excel</button>
 	</nav>
     <div class="input-group mb-3">	
 		<div class="input-group-prepend">

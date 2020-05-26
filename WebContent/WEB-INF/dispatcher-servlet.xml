@@ -164,7 +164,8 @@
 		</property>
 	</bean>
 
-
+	<!-- 엑셀 viewer -->
+	<bean id="excelViewer" class="springweb.z02_util.B01_ExcelViewer" />
 
 
 </beans>       

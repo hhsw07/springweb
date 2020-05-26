@@ -59,6 +59,10 @@
 		}
 		
 		$("#enterBtn").click(function(){
+			start();
+		});
+				
+		function start(){
 			if(confirm("채팅창 접속합니다!!")){
 				// 내 IP 주소
 				// new WebSocket("")
@@ -87,23 +91,35 @@
 						revMsg = data.substring(4);
 						recieveMsg(revMsg);
 					}
-					
-					
 				};
 				// 3. 접속 종료 후, 처리할 메서드.
 				wsocket.onclose=function(){
-					recieveMsg("연결을 종료했습니다.");
+					// 서버단에서 접속 종료 후, 처리할 front단 내용
+					alert("접속 종료합니다.");
+					$("#chatMessageArea").text("");
+					$("#id").val("");
+					$("#id").focus();
 				};
-				
 			}
-		});
+		};
 		// 메시지 처리 메소드(전송 온 메시지를 화면에서 추가 처리)
 		function recieveMsg(revMsg){
 			$("#chatMessageArea").append(revMsg+"<br>");
+			var ht = parseInt($("#chatArea").height());
+			var mx = parseInt($("#chatMessageArea").height());
+			console.log(ht+":"+(mx));
+			$("#chatArea").scrollTop(mx);
+			/*
+			chatMessageArea의 div가 메시지가 계속 추가되게 처리..
+			추가된 높이의 크기만큼 chatArea div의 scrolling 부분을
+			변경 처리..
+			*/
 		}
 		
 		$("#exitBtn").click(function(){
-			alert("나가기");
+			wsocket.send("msg:"+$("#id").val()+":연결 접속 종료했습니다.");
+			wsocket.close(); 
+			// handler의 접속 종료와 연결 되어 있음..afterConnectionClosed()
 		});
 		
 	});
@@ -138,22 +154,12 @@
 		<div class="input-group-prepend">
 			<span class="input-group-text">내 용</span>
 		</div>
+		<!-- #chatArea -->
 		<div id="chatArea" class="input-group-append">
 			<div id="chatMessageArea">
 			</div>
 		</div>
 	</div> 
-	
-	<br>
-	<br>
-	<br>		
-	
-	<div style="text-align:right;">
-		<input type="button" class="btn btn-info"
-			value="등록" id="regBtn"/>
-		<input type="button" class="btn btn-success"
-			value="조회 화면으로" id="goMain"/>
-	</div>    
 </div>
 </body>
 </html>

@@ -224,4 +224,10 @@ public class A01_BoardService {
 		return d;
 	}
 	
+	// excel 다운로드
+	public ArrayList<Board> getAllList(){
+		
+		return dao.getAllList();
+	}
+	
 }

@@ -113,7 +113,21 @@
  	<insert id="insFileInfo" parameterType="java.util.HashMap"> 
  		insert into boardfile values(${no}, 
  			#{tar}, sysdate, sysdate, '')
-	</insert>	 	
+	</insert>
+	
+	<!-- excel 다운로드를 위한 전체 데이터
+		 public ArrayList<Board> getAllList();
+	-->
+	<select id="getAllList" resultMap="boardResult" >
+		select level, b.* 
+		from reboard b
+		where 1=1
+		START WITH refno = 0
+		CONNECT BY PRIOR NO = refno
+		ORDER siblings BY NO DESC
+	</select>
+	
+	 	
 </mapper>	
 
 

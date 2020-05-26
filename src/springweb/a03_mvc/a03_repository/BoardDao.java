@@ -36,5 +36,6 @@ public interface BoardDao {
 	public void uptFileInfo(HashMap hm);
 	public void deleteFile(int no);
 	
-	
+	// excel다운로드를 위한 전체 데이터
+	public ArrayList<Board> getAllList();
 }

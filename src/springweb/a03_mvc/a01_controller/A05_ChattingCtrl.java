@@ -11,4 +11,9 @@ public class A05_ChattingCtrl {
 	public String chatting() {
 		return "WEB-INF\\views\\a03_mvc\\a05_chatting.jsp";
 	}
+	// http://localhost:5080/springweb/chatting2.do
+	@RequestMapping("/chatting2.do")
+	public String chatting2() {
+		return "WEB-INF\\views\\a03_mvc\\a05_chatting2.jsp";
+	}
 }
