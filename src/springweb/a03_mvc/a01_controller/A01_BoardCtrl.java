@@ -93,7 +93,8 @@ public class A01_BoardCtrl {
 	public String excel(Model d) {
 		System.out.println("데이터 크기:"+service.getAllList().size());
 		d.addAttribute("blist", service.getAllList());
-		return "pageJsonReport"; // View 호출
+		//return "pageJsonReport"; // View 호출
+		return "excelViewer"; // View 호출
 	}
 	
 	

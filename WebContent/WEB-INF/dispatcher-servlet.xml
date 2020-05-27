@@ -167,7 +167,19 @@
 	<!-- 엑셀 viewer -->
 	<bean id="excelViewer" class="springweb.z02_util.B01_ExcelViewer" />
 
-
+	<!-- 다국어 처리 모듈 등록
+	1. 핵심 클래스
+	2. 다국어 파일 기본 위치 등록..
+		package명 기준으로 message.msg로 등록..
+	-->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename">
+			<list>
+				<value>message.msg</value>
+			</list>
+		</property>
+	</bean>
+	
 </beans>       
        
      

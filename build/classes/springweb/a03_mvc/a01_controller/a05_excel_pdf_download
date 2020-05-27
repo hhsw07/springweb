@@ -1,4 +1,4 @@
-# 엑셀과 pdf 다운로드 처리.
+# 엑셀과 pdf 다운로드 처리. (poi excel download) a01_boardList.jsp, A05_ChattingCtrl.java, B01_ExcelViewer.java 이용
 1. 특정 list 데이터를 엑셀과 pdf 형식으로 다운되게
 	서버단에서 처리하는 것을 말한다.
 2. 처리 프로세스
