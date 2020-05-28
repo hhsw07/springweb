@@ -173,12 +173,14 @@
 		package명 기준으로 message.msg로 등록..
 	-->
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
-		<property name="basename">
+		<property name="basenames">
 			<list>
 				<value>message.msg</value>
 			</list>
 		</property>
 	</bean>
+	<!-- 언어선택에 따른 다국어 처리 -->
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
 	
 </beans>       
        

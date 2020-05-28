@@ -9,6 +9,7 @@
 <fmt:requestEncoding value="utf-8"/>     
 <!DOCTYPE html>
 <%--
+spring taglib를 이용함.
 <spring code="코드값" /> ==> 코드값에 mapping 된 내용이 언어에 따라서 출력이 된다.
 
  --%>
@@ -38,7 +39,16 @@
 		
 		--%>
 		$("h2").text("<spring:message code='multilang'/>");
-					
+		
+		var lang = "${param.lang}";
+		$("#selectLan").val(lang);
+		$("#selectLan").change(function(){
+			if($(this).val() != ""){
+				$(location).attr("href","${path}/choiceLan.do?lang="+$(this).val());
+			}
+		});
+		
+		
 	});
 </script>
 </head>
@@ -46,6 +56,12 @@
 <body>
 <div class="jumbotron text-center">
 	<h2></h2>
+	
+	<select class="form-control" id="selectLan">
+		<option value=""><spring:message code="chlang"/></option>
+		<option value="ko"><spring:message code="ko"/></option>
+		<option value="en"><spring:message code="en"/></option>
+	</select>
 </div>
 <div class="container">
 	<h3 align="center"><spring:message code="regmem"/></h3>
@@ -54,8 +70,15 @@
 			<span class="input-group-text"><spring:message code="id"/></span>
 		</div>
 		<input name="id" class="form-control" 
-			placeholder="<spring:message code="id"/><spring:message code="reg"/>" />	
-	</div>     
+			placeholder="<spring:message code="id"/> <spring:message code="reg"/>" />	
+	</div>
+	<div class="input-group mb-3">
+		<div class="input-group-prepend">
+			<span class="input-group-text"><spring:message code="pwd"/></span>
+		</div>
+		<input name="pass" class="form-control" 
+			placeholder="<spring:message code="pwd"/> <spring:message code="reg"/>" />	
+	</div>    
 </div>
 </body>
 </html>
