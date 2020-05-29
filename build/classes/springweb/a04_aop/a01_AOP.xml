@@ -19,15 +19,15 @@
        http://www.springframework.org/schema/util/spring-util-4.0.xsd
    		http://www.springframework.org/schema/websocket
 		http://www.springframework.org/schema/websocket/spring-websocket.xsd" >
-
+	
 	<bean class="java.lang.String">
 		<constructor-arg>스프링 AOP</constructor-arg>
 	</bean>
-	<!-- 1. 핵심 모듈(target) 클래스를 정의 -->
+	<!-- 1. 핵심 모듈(target) 클래스를 정의  -->
 	
-	<!-- 2. 관심 모듈(AOP) 클래스 저의 빈.. -->
+	<!-- 2. 관심 모듈(AOP) 클래스 정의 빈.. -->
 	
-	<!-- 3. proxy를 통해서 target과 AOP를 연동 처리.. -->
+	<!-- 3. proxy를 통해서 taget과 AOP를 연동 처리.. -->
 	
 </beans>       
        
