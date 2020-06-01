@@ -4,6 +4,7 @@ import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.springframework.util.StopWatch;
 
+// springweb.a04_aop.vo.A01_Loggin : 관심 모듈(AOP) 클래스 정의(a01_AOP.xml에서 정의)
 // 공통  모듈(로그 처리) - 대상 객체에 대한 클래스명, 메서드, 시작과 종료시간.
 // impliments MethoidInterceptor ==> import org.aopalliance.intercept.MethodInterceptor;
 public class A01_Loggin implements MethodInterceptor{

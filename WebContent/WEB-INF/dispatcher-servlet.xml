@@ -182,6 +182,20 @@
 	<!-- 언어선택에 따른 다국어 처리 -->
 	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
 	
+	
+	<!-- advice 선언 -->
+	<bean id="profiler" class="springweb.a04_aop.advice.Profiler"/>
+	<!-- aspect : pointcut + advice -->
+	<aop:config>
+		<aop:aspect id="traceAspect" ref="profiler">
+			<!-- 특정 시점과 수행내용 선언.. (a03_repository 패키지 하위의 모든 dao -->
+			<aop:pointcut expression="execution(public * springweb.a03_mvc.a03_repository..*(..))"
+				id="publicMethod"/>
+			<!-- pointcut의 시점 메서드를 연결처리.(weaving) -->
+			<aop:around method="trace" pointcut-ref="publicMethod"/>
+		</aop:aspect>
+	</aop:config>
+	
 </beans>       
        
      
